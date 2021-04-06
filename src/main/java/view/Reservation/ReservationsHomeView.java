@@ -20,7 +20,7 @@ public class ReservationsHomeView {
     private JButton modifyReservationButton = new JButton("Modifica prenotazione");
     private JButton deleteReservationButton = new JButton("Elimina prenotazione");
     private final JDateChooser dateChooser = new JDateChooser();
-    
+
 
      /**
      * Create the frame.
@@ -33,7 +33,6 @@ public class ReservationsHomeView {
 
 
         this.textAreaPanel.add(dateChooser);
-        
 
 
         this.buttonsPanel.add(viewReservationButton);

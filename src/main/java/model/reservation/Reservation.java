@@ -1,4 +1,4 @@
-package model.reservation;
+package model.Reservation;
 
 import java.util.Date;
 
@@ -30,7 +30,7 @@ public interface Reservation {
     Date getDateOut();
 
     /**
-     * This method is used to change the room of one reservation. 
+     * This method is used to change the reservation's room. 
      * @param room
      *          room
     **/
