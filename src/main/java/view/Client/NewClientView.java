@@ -29,11 +29,11 @@ public class NewClientView extends JFrame {
     private JTextField textField_4;
     
     //DA SISTEMARE
-    String Nome;
-    String Cognome;
-    String CF;
-    String numeroTelefono;
-    String dataNascita;
+    private String Nome;
+    private String Cognome;
+    private String CF;
+    private String numeroTelefono;
+    private String dataNascita;
 
     /**
      * Launch the application.
