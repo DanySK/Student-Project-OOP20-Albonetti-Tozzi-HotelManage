@@ -3,6 +3,7 @@ package model.Reservation;
 import java.util.Date;
 
 import model.client.Client;
+import model.room.Room;
 
 public class ReservationImpl implements Reservation {
 

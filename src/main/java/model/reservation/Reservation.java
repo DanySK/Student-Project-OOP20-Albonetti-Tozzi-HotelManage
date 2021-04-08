@@ -3,6 +3,7 @@ package model.Reservation;
 import java.util.Date;
 
 import model.client.Client;
+import model.room.Room;
 
 /**
  * An interface that model a reservation.
