@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Font;
-import java.awt.Color;
 
 
 public class AddReservationView extends JFrame {

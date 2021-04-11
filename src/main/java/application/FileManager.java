@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-public class Main {
+public class FileManager {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException{
-        
+public static void main(String[] args) throws FileNotFoundException, IOException{
+
         String s;
         boolean b;
         List<String> list;
