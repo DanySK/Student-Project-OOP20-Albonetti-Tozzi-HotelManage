@@ -1,20 +1,22 @@
 package model.file;
 
+import java.util.List;
+
 public interface MyFile {
 
     
     /**
      * Reading the file
      */
-    public void fileReader();
+    public List<String> fileReader();
     /**
      * Writing on the file
      * @param string 
      */
-    public void fileWriter(String string);
+    public boolean fileWriter(String string);
     /**
      * Searching on the file
      * @param string 
      */
-    public void fileSearch(String string);        
+    public String fileSearch(String string);        
 }
