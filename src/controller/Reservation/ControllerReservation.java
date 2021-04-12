@@ -1,5 +1,6 @@
 package controller.Reservation;
 
+import java.util.List;
 import java.util.Set;
 
 import model.Reservation.Reservation;
@@ -9,7 +10,7 @@ import model.Reservation.Reservation;
  */
 public interface ControllerReservation {
 
- 
+    List<String> readReservation();
     /**
      * 
      * @return all the reservation.
