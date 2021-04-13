@@ -2,14 +2,21 @@ package model.room;
 
 public class RoomImpl {
     
+    private final String id(); 
     private int  Number number;
-    private String Typology typology;
+    private final String typology;
     
-    public RoomImpl(final Number number, final Typology typology ) {
+    public RoomImpl(final String id,final Number number, final Typology typology ) {
         
+        this.id = id;
         this.number = number;
         this.typology = typology;
         
+    }
+    
+    public String getId(final String Id) {
+        
+        return id;
     }
    
     public int getNumber(final Number number) {
@@ -22,6 +29,8 @@ public class RoomImpl {
         this.typology = typology;
        
     }
+    
+    public boolean isFreeRoom() 
     
 
 }

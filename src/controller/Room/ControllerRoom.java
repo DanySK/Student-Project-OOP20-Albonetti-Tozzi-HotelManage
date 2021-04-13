@@ -6,6 +6,8 @@ import model.room.*;
 
 public interface ControllerRoom {
     
+    List<String> readRoom();
+    
     Set<Room> getAll<Room>();
 
 }
