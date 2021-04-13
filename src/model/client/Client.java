@@ -1,33 +1,16 @@
 package model.client;
 
 public interface Client {
-    
     /**
-     * Insert the costumer in the file.
-     * @param name
-     * @param surname
-     * @param id
+     * @return the client name
      */
-    void insertClient(String name, String surname, String id ); 
-    
+    String getName();
     /**
-     * Get an existing customer from the file.
-     * @param id
-     * @return The Client id
+     * @return the client surname
      */
-    String getClient(String id);
-    
+    String getSurname();
     /**
-     * Search if a client is present.
-     * @param id
-     * @return true if present if not false
+     * @return the client id
      */
-    Boolean searchClient(String id);
-    
-    /**
-     * Search in which room the customer is staying
-     * @param id
-     */
-    String getRoom(String id);
-
+    String getId();
 }
