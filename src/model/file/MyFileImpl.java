@@ -47,7 +47,7 @@ public class MyFileImpl implements MyFile {
     @Override
     public boolean fileWriter(final String string) {
         try {
-            FileWriter fr = new FileWriter(file);
+            FileWriter fr = new FileWriter(file, true);
             BufferedWriter writer = new BufferedWriter(fr);
             writer.newLine();
             writer.write(string);
@@ -68,7 +68,8 @@ public class MyFileImpl implements MyFile {
             String line = reader.readLine();
             while (line != null) {
                 if (line.contains(string)) {
-                    research = line;
+                    return line;
+                   // research = line;
                 }
             line = reader.readLine();
             }
@@ -76,7 +77,8 @@ public class MyFileImpl implements MyFile {
         } catch (IOException e) {
             System.out.println("Eccezione generata nella ricerca del file");
         }
-        return research;
+        return null;
+       // return research;
 
     }
 
