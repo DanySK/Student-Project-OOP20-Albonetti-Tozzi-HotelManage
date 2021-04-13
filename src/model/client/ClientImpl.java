@@ -1,32 +1,34 @@
 package model.client;
 
+import java.util.regex.Pattern;
+
+import model.file.*;
+
 public class ClientImpl implements Client {
-    
 
-    @Override
-    public void insertClient(String name, String surname, String id) {
-        // TODO Auto-generated method stub
+    private final String name;
+    private final String surname;
+    private final String id;
+    public ClientImpl(final String i) {
+        String[] parts = i.split(Pattern.quote("."));
+        name = parts[0];
+        surname = parts[1];
+        id = parts[2]; 
     }
 
-    @Override
-    public String getClient(String id) {
-        // TODO Auto-generated method stub
-        return null;
+    public ClientImpl(final String name, final String surname, final String id) {
+        this.name = name;
+        this.surname = surname;
+        this.id = id;
     }
 
-    @Override
-    public Boolean searchClient(String id) {
-        if(getClient(id) != null) {
-            return true;
-        }
-        return false;
+    public String getName() {
+        return name;
     }
-
-    @Override
-    public String getRoom(String id) {
-        // TODO Auto-generated method stub
-        //ci dovrà esssere un file con idcliente e id stanza
-        return null;
+    public String getSurname() {
+        return surname;
     }
-
-}
+    public String getId() {
+        return id;
+    }
+ }
