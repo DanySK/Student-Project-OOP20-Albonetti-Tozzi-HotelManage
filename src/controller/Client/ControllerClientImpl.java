@@ -36,11 +36,10 @@ public class ControllerClientImpl implements ControllerClient {
     }
 
     @Override
-    public String getClient(final String id) {
+    public Client getClient(final String id) {
         for (var i: list) {
             if ((i.getId()).equals(id)) {
-                String s = i.getName() + "." + i.getSurname() + "." + id;
-                return s;
+                return i;
             }
         }
         return null;
