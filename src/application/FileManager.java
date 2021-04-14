@@ -37,12 +37,13 @@ public static void main(String[] args) throws FileNotFoundException, IOException
         ControllerClient client = new ControllerClientImpl();
         
         System.out.println("Get all: " + client.getAllClient());
-        System.out.println("Get client Luigi: " + client.getClient("ROSLUI99B72T898P"));
+        Client c = client.getClient("ROSLUI99B72T898P");
+        System.out.println("Get client Luigi: " + c.getId() + " " + c.getName() + " " + c.getSurname());
         System.out.println("Search Giorgio: " + client.searchClient("GIORGIOV33E66W456T"));
         System.out.println("Search Giorgio: " + client.searchClient("tzzcHR00A50R458L"));
         System.out.println("Search Giorgio: " + client.searchClient("TZZCHR00A50R458L"));
         
-        client.insertClient("Mario", "Neri", "MARNER65G80I548K");
+        //client.insertClient("Mario", "Neri", "MARNER65G80I548K");
         System.out.println("Get all: " + client.getAllClient());
     } 
 }
