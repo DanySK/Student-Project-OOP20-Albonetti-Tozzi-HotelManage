@@ -2,6 +2,8 @@ package controller.Client;
 
 import java.util.List;
 
+import model.client.Client;
+
 public interface ControllerClient{
     /**
      * @return the list of client
@@ -19,7 +21,7 @@ public interface ControllerClient{
      * @return the client 
      * @param id (codice fiscale)
      */
-    String getClient(String id);
+    Client getClient(String id);
    
     /**
      * @return true if the client is present otherwise false
