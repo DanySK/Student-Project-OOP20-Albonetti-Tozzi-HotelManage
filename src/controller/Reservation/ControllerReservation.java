@@ -1,6 +1,6 @@
 package controller.Reservation;
 
-import java.util.List;
+import java.text.ParseException;
 import java.util.Set;
 
 import model.Reservation.Reservation;
@@ -10,12 +10,13 @@ import model.Reservation.Reservation;
  */
 public interface ControllerReservation {
 
-    List<String> readReservation();
+
     /**
      * 
      * @return all the reservation.
+     * @throws ParseException 
      */
-    Set<Reservation> getAllReservation();
+    Set<Reservation> getAllReservation() throws ParseException;
 
     /**
      * Is used to add a reservation to Reservations.

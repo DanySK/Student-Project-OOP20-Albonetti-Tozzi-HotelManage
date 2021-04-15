@@ -34,8 +34,12 @@ public class MyFileImpl implements MyFile {
            BufferedReader reader = new BufferedReader(fr);
            String line = reader.readLine();
            while (line != null) {
+               if (line.isEmpty()) {
+                   line = reader.readLine();
+                   continue;
+               }
                list.add(line);
-               line = reader.readLine(); 
+               line = reader.readLine();
            }
            reader.close();
        } catch (IOException e) {

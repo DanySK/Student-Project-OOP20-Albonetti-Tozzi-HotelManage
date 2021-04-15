@@ -12,7 +12,7 @@ public class ReservationImpl implements Reservation {
     private Date dateIn;
     private Date dateOut;
 
-    public ReservationImpl(final Client client, final Room room, final Date dateIn, final Date dateOut) {
+    public ReservationImpl(final Client client, final Date dateIn, final Date dateOut, final Room room) {
         this.client = client;
         this.room = room;
         this.dateIn = dateIn;
