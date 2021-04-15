@@ -1,36 +1,27 @@
 package model.room;
 
-public class RoomImpl {
-    
-    private final String id(); 
-    private int  Number number;
-    private final String typology;
-    
-    public RoomImpl(final String id,final Number number, final Typology typology ) {
-        
-        this.id = id;
-        this.number = number;
-        this.typology = typology;
-        
-    }
-    
-    public String getId(final String Id) {
-        
-        return id;
-    }
-   
-    public int getNumber(final Number number) {
-        
-        this.number = number;
-    }
-    
-    public String getTypology(final Typology typology) {
-        
-        this.typology = typology;
-       
-    }
-    
-    public boolean isFreeRoom() 
-    
+public class RoomImpl implements Room {
 
+    private final int roomNumber;
+    private final RoomType type;
+
+    public RoomImpl(final int roomNumber, final RoomType type) {
+        this.roomNumber = roomNumber;
+        this.type = type;
+    }
+
+    @Override
+    public final int getNumber() {
+        return this.roomNumber;
+    }
+
+    @Override
+    public final RoomType getType() {
+       return this.type;
+    }
+
+    @Override
+    public final String toString() {
+        return "RoomImpl [roomNumber=" + roomNumber + ", type=" + type + "]";
+    }
 }

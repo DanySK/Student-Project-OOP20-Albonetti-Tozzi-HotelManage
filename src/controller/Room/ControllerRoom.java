@@ -1,13 +1,23 @@
 package controller.Room;
 
-import java.util.Set;
+import java.util.List;
 
-import model.room.*;
+import model.room.Room;
+
 
 public interface ControllerRoom {
-    
-    List<String> readRoom();
-    
-    Set<Room> getAll<Room>();
+
+    /**
+     * 
+     * @return The room's list
+     */
+    List<Room> getAll();
+
+    /**
+     * 
+     * @param number of room
+     * @return The specific room
+     */
+    Room getRoom(int number);
 
 }
