@@ -1,5 +1,6 @@
 package view.Client;
 
+import controller.Client.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -21,20 +22,24 @@ import java.awt.event.MouseEvent;
 
 public class NewClientView extends JFrame {
 
-    private JPanel contentPane;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_2;
-    private JTextField textField_3;
-    private JTextField textField_4;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private final  JPanel contentPane;
+    private final JTextField textField = new JTextField();
+    private final JTextField textField1 = new JTextField();
+    private final JTextField  textField2 = new JTextField();
+    private final JLabel label = new JLabel("Inserire i dati del nuovo cliente");
+    private final JLabel labelname = new JLabel("Nome:");
+    private final JLabel labelsurname = new JLabel("Cognome:");
+    private final JLabel labelid = new JLabel("Codice Fiscale:");
+    private final JLabel label2 = new JLabel("Registrazione non avvenuta");
+    private final JButton buttonreg = new JButton("Registra");
+    private String name;
+    private String surname;
+    private String id;
     
-    //DA SISTEMARE
-    private String Nome;
-    private String Cognome;
-    private String CF;
-    private String numeroTelefono;
-    private String dataNascita;
-
     /**
      * Launch the application.
      */
@@ -55,6 +60,7 @@ public class NewClientView extends JFrame {
      * Create the frame.
      */
     public NewClientView() {
+        ControllerClient client = new ControllerClientImpl();
         setForeground(Color.WHITE);
         setTitle("Client");
         setBackground(Color.WHITE);
@@ -66,126 +72,80 @@ public class NewClientView extends JFrame {
         contentPane.setForeground(Color.BLACK);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
-        
 
-        JLabel lblNewLabel = new JLabel("Inserire i dati del nuovo cliente");
-        lblNewLabel.setFont(new Font("Microsoft Tai Le", Font.BOLD, 11));
+        label.setFont(new Font("Microsoft Tai Le", Font.BOLD, 11));
+        labelname.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelsurname.setFont(new Font("Tahoma", Font.BOLD, 14));
+        labelid.setFont(new Font("Tahoma", Font.BOLD, 14));
         
-        JLabel lblNewLabel_1 = new JLabel("Nome:");
-        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-        
-        JLabel lblNewLabel_1_1 = new JLabel("Cognome:");
-        lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-        
-        JLabel lblNewLabel_1_1_1 = new JLabel("Codice Fiscale:");
-        lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-        
-        JLabel lblNewLabel_1_1_1_1 = new JLabel("Numero di telefono:");
-        lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-        
-        JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Data di nascita:");
-        lblNewLabel_1_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-        
-        JLabel lblNewLabel_2 = new JLabel("Registrazione non avvenuta");
-        
-        JButton btnNewButton = new JButton("Registra");
-        btnNewButton.addMouseListener(new MouseAdapter() {
+        textField.setColumns(10);
+        textField1.setColumns(10); 
+        textField2.setColumns(10);
+
+        buttonreg.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mousePressed(MouseEvent e) {
-                        Nome = textField.getText();
-                        Cognome = textField_1.getText();
-                        numeroTelefono= textField_3.getText();
-                        CF = textField_2.getText();
-                        dataNascita = textField_4.getText();
-                        System.out.println(""+Nome+ " " +Cognome+" " +numeroTelefono+" " +CF+" " +dataNascita);
-                        lblNewLabel_2.setText("Registrazione avvenuta");
-
+                public void mousePressed(final MouseEvent e) {
+                        name = textField.getText();
+                        surname = textField1.getText();
+                        id = textField2.getText();
+                        client.insertClient(name, surname, id);
+                        if (client.searchClient(id)) {
+                            label2.setText("Registrazione avvenuta");
+                        }
+                        else {
+                            label2.setText("Registrazione non avvenuta"); 
+                        }
                 }
         });
-        
-        textField = new JTextField();
-        textField.setColumns(10);
-        
-        textField_1 = new JTextField();
-        textField_1.setColumns(10);
-        
-        textField_2 = new JTextField();
-        textField_2.setColumns(10);
-        
-        textField_3 = new JTextField();
-        textField_3.setColumns(10);
-        
-        textField_4 = new JTextField();
-        textField_4.setColumns(10);
-        
-        GroupLayout gl_contentPane = new GroupLayout(contentPane);
-        gl_contentPane.setHorizontalGroup(
-                gl_contentPane.createParallelGroup(Alignment.TRAILING)
-                        .addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(textField, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(132, Short.MAX_VALUE))
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                                .addGap(132))
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                                .addGap(132))
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addComponent(lblNewLabel_1_1_1_1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                                .addGap(132))
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-                                        .addGroup(gl_contentPane.createSequentialGroup()
-                                                .addComponent(lblNewLabel_1_1_1_1_1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(gl_contentPane.createSequentialGroup()
-                                                .addContainerGap()
-                                                .addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(30)
-                                .addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
+        GroupLayout glcontentPane = new GroupLayout(contentPane);
+        glcontentPane.setHorizontalGroup(
+            glcontentPane.createParallelGroup(Alignment.TRAILING)
+                .addComponent(label, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                .addGroup(glcontentPane.createSequentialGroup()
+                    .addComponent(labelname, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(textField, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(132, Short.MAX_VALUE))
+                .addGroup(glcontentPane.createSequentialGroup()
+                    .addComponent(labelsurname, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                    .addGap(132))
+                .addGroup(glcontentPane.createSequentialGroup()
+                    .addComponent(labelid, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                    .addGap(132))
+                .addGroup(glcontentPane.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(30)
+                    .addComponent(buttonreg, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
         );
-        gl_contentPane.setVerticalGroup(
-                gl_contentPane.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_contentPane.createSequentialGroup()
-                                .addComponent(lblNewLabel)
-                                .addPreferredGap(ComponentPlacement.UNRELATED)
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-                                        .addGroup(gl_contentPane.createSequentialGroup()
-                                                .addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                                                        .addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(ComponentPlacement.UNRELATED)
-                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                                                        .addComponent(lblNewLabel_1_1_1_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                                                        .addComponent(lblNewLabel_1_1_1_1_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(btnNewButton)
-                                        .addComponent(lblNewLabel_2))
-                                .addContainerGap())
+        glcontentPane.setVerticalGroup(
+            glcontentPane.createParallelGroup(Alignment.LEADING)
+                .addGroup(glcontentPane.createSequentialGroup()
+                    .addComponent(label)
+                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addGroup(glcontentPane.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(labelname, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(glcontentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(glcontentPane.createSequentialGroup()
+                            .addComponent(labelsurname, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addGroup(glcontentPane.createParallelGroup(Alignment.BASELINE)
+                                .addComponent(labelid, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                    .addGroup(glcontentPane.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(buttonreg)
+                        .addComponent(label2))
+                    .addContainerGap())
         );
-        contentPane.setLayout(gl_contentPane);
+        contentPane.setLayout(glcontentPane);
     }
 
 }
