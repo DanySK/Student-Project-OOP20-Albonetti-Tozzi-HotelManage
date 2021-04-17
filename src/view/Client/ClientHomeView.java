@@ -22,7 +22,14 @@ import javax.swing.UIManager;
 
 public class ClientHomeView extends JFrame {
 
-    private JPanel contentPane;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    private final JPanel contentPane;
+    private final JButton buttonnewclient = new JButton("Nuvo Cliente");
+    private final JButton buttonsearchclient = new JButton("Cerca Cliente");
+    private final JLabel label = new JLabel("Scegliere quale azione effettuare");
 
     /**
      * Launch the application.
@@ -52,55 +59,53 @@ public class ClientHomeView extends JFrame {
         contentPane.setBorder(null);
         setContentPane(contentPane);
         
-        JButton btnNewButton = new JButton("Nuvo Cliente");
-        btnNewButton.setForeground(Color.BLACK);
-        btnNewButton.setBackground(UIManager.getColor("Table.selectionBackground"));
-        btnNewButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        buttonnewclient.setForeground(Color.BLACK);
+        buttonnewclient.setBackground(UIManager.getColor("Table.selectionBackground"));
+        buttonsearchclient.setBackground(UIManager.getColor("Table.selectionBackground"));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setFont(label.getFont().deriveFont(label.getFont().getSize() + 7f));
+        
+        buttonnewclient.addActionListener(new ActionListener() {
+                public void actionPerformed(final ActionEvent e) {
                         System.out.println("Sto aprendo la view perc registrare il nuovo cliente");
                         NewClientView nuovo = new NewClientView();
                         nuovo.setVisible(true);
                 }
         });
         
-        JButton btnNewButton_1 = new JButton("Cerca Cliente");
-        btnNewButton_1.setBackground(UIManager.getColor("Table.selectionBackground"));
-        btnNewButton_1.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
+        buttonsearchclient.addActionListener(new ActionListener() {
+                public void actionPerformed(final ActionEvent e) {
                         System.out.println("Sto aprendo la view per registrare cercare il cliente");
                         FindClientView cerca = new FindClientView();
                         cerca.setVisible(true);
                 }
         });
-        
-        JLabel lblNewLabel = new JLabel("Scegliere quale azione effettuare");
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setFont(lblNewLabel.getFont().deriveFont(lblNewLabel.getFont().getSize() + 7f));
-        GroupLayout gl_contentPane = new GroupLayout(contentPane);
-        gl_contentPane.setHorizontalGroup(
-                gl_contentPane.createParallelGroup(Alignment.TRAILING)
-                        .addGroup(gl_contentPane.createSequentialGroup()
+
+        GroupLayout glcontentPane = new GroupLayout(contentPane);
+        glcontentPane.setHorizontalGroup(
+                glcontentPane.createParallelGroup(Alignment.TRAILING)
+                        .addGroup(glcontentPane.createSequentialGroup()
                                 .addGap(60)
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-                                        .addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-                                                .addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(glcontentPane.createParallelGroup(Alignment.TRAILING)
+                                        .addGroup(Alignment.LEADING, glcontentPane.createSequentialGroup()
+                                                .addComponent(buttonnewclient, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(105)
-                                                .addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(lblNewLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
+                                                .addComponent(buttonsearchclient, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(label, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
                                 .addGap(41))
         );
-        gl_contentPane.setVerticalGroup(
-                gl_contentPane.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_contentPane.createSequentialGroup()
+        glcontentPane.setVerticalGroup(
+                glcontentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(glcontentPane.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(label, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
                                 .addGap(26)
-                                .addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(glcontentPane.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(buttonsearchclient, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(buttonnewclient, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(125, Short.MAX_VALUE))
         );
-        contentPane.setLayout(gl_contentPane);
+        contentPane.setLayout(glcontentPane);
     }
 
 }
