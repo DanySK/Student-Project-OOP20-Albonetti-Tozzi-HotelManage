@@ -15,13 +15,6 @@ public class MyFileImpl implements MyFile {
 
     private final File file;
     private List<String> list = new LinkedList<>();
-    private String research;
-
-
-/*  public MyFileImpl(String namefile) {
-         URL url = getClass().getResource(namefile);
-         file = new File(url.getPath());
-     */
 
     public MyFileImpl(final URL fileName) {
         file = new File(fileName.getPath());
@@ -54,7 +47,7 @@ public class MyFileImpl implements MyFile {
             FileWriter fr = new FileWriter(file, true);
             BufferedWriter writer = new BufferedWriter(fr);
             writer.newLine();
-            writer.write(string);
+            writer.write(string.toLowerCase());
             writer.flush();
             writer.close();
             return true;
@@ -71,9 +64,8 @@ public class MyFileImpl implements MyFile {
             BufferedReader reader = new BufferedReader(fr);
             String line = reader.readLine();
             while (line != null) {
-                if (line.contains(string)) {
+                if (line.contains(string.toLowerCase())) {
                     return line;
-                   // research = line;
                 }
             line = reader.readLine();
             }
@@ -82,7 +74,6 @@ public class MyFileImpl implements MyFile {
             System.out.println("Eccezione generata nella ricerca del file");
         }
         return null;
-       // return research;
 
     }
 

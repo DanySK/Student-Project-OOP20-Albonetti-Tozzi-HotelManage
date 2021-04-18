@@ -47,9 +47,9 @@ public class ControllerClientImpl implements ControllerClient {
 
     @Override
     public Boolean searchClient(String id) {
-        if (this.getClient(id) != null) {
-            return true;
-        }
+       if (myfile.fileSearch(id) != null) {
+           return true;
+       }
         return false;
     }
 
