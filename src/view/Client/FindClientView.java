@@ -38,22 +38,6 @@ public class FindClientView extends JFrame {
     private final JButton buttonSearch = new JButton("Ricerca");
     
     private String id;
-    
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    FindClientView frame = new FindClientView();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     /**
      * Create the frame.
