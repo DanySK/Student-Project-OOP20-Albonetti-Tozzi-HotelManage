@@ -24,7 +24,7 @@ public class ReservationsHomeView extends JFrame {
     private JButton deleteReservationButton = new JButton("Elimina prenotazione");
     private final JPanel infoPanel = new JPanel();
     private final JLabel infoLabel = new JLabel("Scegliere l'operazione da eseguire");
-    private final FlowLayout buttonsPanelLayout = new FlowLayout (FlowLayout.CENTER ,100, 15);
+    private final FlowLayout buttonsPanelLayout = new FlowLayout(FlowLayout.CENTER, 100, 15);
     private final FlowLayout infoPanelLayout = new FlowLayout(FlowLayout.CENTER);
 
 
