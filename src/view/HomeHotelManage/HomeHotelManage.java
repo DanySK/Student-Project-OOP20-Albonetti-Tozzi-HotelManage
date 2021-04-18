@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -89,20 +90,23 @@ public class HomeHotelManage extends JFrame {
         /**
          * Mouse Listener, open the clients and reservations view.
          */
-        btnPrenota.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                     // ReservationsHomeView reservation = new ReservationsHomeView();
-                     //reservation.setVisible(true);
-                }
+
+        btnPrenota.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent a) {
+               ReservationsHomeView reservation = new ReservationsHomeView();
+               reservation.setVisible(true);
+            };
         });
-        btnClienti.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                      ClientHomeView client = new ClientHomeView();
-                      client.setVisible(true);
-                }
+
+        btnClienti.addActionListener (new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ClientHomeView client = new ClientHomeView();
+                client.setVisible(true);
+            }
         });
+
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
                 gl_contentPane.createParallelGroup(Alignment.LEADING)

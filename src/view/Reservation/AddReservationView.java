@@ -16,6 +16,18 @@ import java.awt.Font;
 
 
 public class AddReservationView extends JFrame {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    private static final int VERTICALGAP = 18; 
+    private static final int SUBTITLEFONTDIM = 20;
+    private static final int LABELFONTDIM = 15;
+    private static final int VERTICALCONTAINERGAP = 115;
+    private static final int HORIZONTALCONTAINERGAP = 147;
+    private static final int HORIZONTALGAP = 36;
+
     private final JPanel infoPanel = new JPanel();
     private final JPanel buttonPanel = new JPanel();
     private final JTextField roomTextField = new JTextField();
@@ -54,7 +66,7 @@ public class AddReservationView extends JFrame {
         this.getContentPane().add(infoPanel, BorderLayout.NORTH);
         this.infoPanel.setLayout(infoPanelLayout);
         this.infoPanelLayout.setVgap(20);
-        this.infoLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        this.infoLabel.setFont(new Font("Tahoma", Font.PLAIN, SUBTITLEFONTDIM));
         this.infoPanel.add(infoLabel);
 
         //Initialize the south panel
@@ -66,38 +78,39 @@ public class AddReservationView extends JFrame {
 
         //Initialize center panel
         this.getContentPane().add(dataPanel, BorderLayout.CENTER);
-        this.clientLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        this.checkInLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        this.checkOutLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-        this.roomLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        this.clientLabel.setFont(new Font("Tahoma", Font.PLAIN, LABELFONTDIM));
+        this.checkInLabel.setFont(new Font("Tahoma", Font.PLAIN, LABELFONTDIM));
+        this.checkOutLabel.setFont(new Font("Tahoma", Font.PLAIN, LABELFONTDIM));
+        this.roomLabel.setFont(new Font("Tahoma", Font.PLAIN, LABELFONTDIM));
         this.roomTextField.setColumns(10);
         this.clientTextField.setColumns(10);
         this.dataPanel.setLayout(dataPanelLayout);
+        dataPanelLayout.setAutoCreateGaps(true);
 
 
         this.dataPanelLayout.setHorizontalGroup(
                 this.dataPanelLayout.createParallelGroup(Alignment.LEADING)
                 .addGroup(this.dataPanelLayout.createSequentialGroup()
-                    .addGap(36)
+                    .addGap(HORIZONTALGAP)
                     .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.LEADING, false)
                         .addComponent(this.clientLabel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
                         .addComponent(this.checkInLabel, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
                         .addComponent(this.checkOutLabel)
                         .addComponent(this.roomLabel, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                    .addGap(36)
+                    .addGap(HORIZONTALGAP)
                     .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(this.dataPanelLayout.createSequentialGroup()
                             .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.LEADING, false)
                                 .addComponent(this.roomTextField)
                                 .addComponent(this.checkOutDateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(this.checkInDateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18)
+                            .addGap(VERTICALGAP)
                             .addComponent(this.roomButton, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
                         .addGroup(this.dataPanelLayout.createSequentialGroup()
                             .addComponent(this.clientTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18)
+                            .addGap(VERTICALGAP)
                             .addComponent(this.clientButton)))
-                    .addContainerGap(147, Short.MAX_VALUE))
+                    .addContainerGap(HORIZONTALCONTAINERGAP, Short.MAX_VALUE))
         );
         this.dataPanelLayout.setVerticalGroup(
                 this.dataPanelLayout.createParallelGroup(Alignment.LEADING)
@@ -108,23 +121,23 @@ public class AddReservationView extends JFrame {
                         .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.BASELINE)
                             .addComponent(this.clientTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addComponent(this.clientButton)))
-                    .addGap(18)
+                    .addGap(VERTICALGAP)
                     .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(this.dataPanelLayout.createSequentialGroup()
                             .addComponent(this.checkInDateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18)
+                            .addGap(VERTICALGAP)
                             .addComponent(this.checkOutDateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18)
+                            .addGap(VERTICALGAP)
                             .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.BASELINE)
                                 .addComponent(this.roomTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(this.roomButton)))
                         .addGroup(this.dataPanelLayout.createSequentialGroup()
                             .addComponent(this.checkInLabel)
-                            .addGap(18)
+                            .addGap(VERTICALGAP)
                             .addComponent(this.checkOutLabel)
-                            .addGap(18)
+                            .addGap(VERTICALGAP)
                             .addComponent(this.roomLabel)))
-                    .addContainerGap(115, Short.MAX_VALUE))
-        );  
+                    .addContainerGap(VERTICALCONTAINERGAP, Short.MAX_VALUE))
+        );
     }
 }
