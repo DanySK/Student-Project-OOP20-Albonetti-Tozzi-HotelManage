@@ -21,42 +21,48 @@ public class ReservationImpl implements Reservation {
 
 
     @Override
-    public Client getClient() {
+    public final Client getClient() {
         return this.client;
     }
 
     @Override
-    public Room getRoom() {
+    public final Room getRoom() {
         return this.room;
     }
 
     @Override
-    public Date getDateIn() {
+    public final Date getDateIn() {
        return this.dateIn;
     }
 
     @Override
-    public Date getDateOut() {
+    public final Date getDateOut() {
        return this.dateOut;
     }
 
     @Override
-    public void setRoom(final Room room) {
+    public final void setRoom(final Room room) {
         this.room = room;
     }
 
     @Override
-    public void setDateIn(final Date dateIn) {
+    public final void setDateIn(final Date dateIn) {
         this.dateIn = dateIn;
     }
 
     @Override
-    public void setDateOut(final Date dateOut) {
+    public final void setDateOut(final Date dateOut) {
         this.dateOut = dateOut;
     }
 
     @Override
-    public void setClient(final Client client) {
+    public final void setClient(final Client client) {
        this.client = client;
+    }
+
+    @Override
+    public final String toString() {
+        return "ReservationImpl [client=" + client.toString() + ", room=" + room.toString() + ", dateIn=" + dateIn + ", dateOut=" + dateOut
+                + "]";
     }
 }

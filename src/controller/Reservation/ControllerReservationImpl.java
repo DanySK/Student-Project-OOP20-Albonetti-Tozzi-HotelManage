@@ -4,14 +4,19 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.regex.Pattern;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 import controller.Client.ControllerClient;
 import controller.Client.ControllerClientImpl;
+import controller.Room.ControllerRoom;
+import controller.Room.ControllerRoomImpl;
 import model.Reservation.Reservation;
 import model.Reservation.ReservationImpl;
 import model.client.Client;
@@ -22,12 +27,10 @@ import model.room.Room;
 
 public class ControllerReservationImpl implements ControllerReservation {
 
-    private final HashMap<Date, Set<Room>> roomsAtDate = new HashMap<>();
     private final URL urlFileReservation = ClassLoader.getSystemResource("Reservations.txt");
     private final MyFile fileManager = new MyFileImpl(this.urlFileReservation);
     private final ControllerClient clientController = new ControllerClientImpl();
-
-    // private final ControllerRoom roomController = new ControllerRoom();
+    private final ControllerRoom roomController = new ControllerRoomImpl();
     private Set<Reservation> allReservation = new HashSet<>();
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -37,38 +40,68 @@ public class ControllerReservationImpl implements ControllerReservation {
         return reservations;
     }
 
-    @Override
-    public Set<Reservation> getAllReservation() throws ParseException {
-        this.allReservation.clear();                            //Svuoto la lista delle prenotazioni per riempirla di nuovo
-        List<String> reservations = this.readReservation();
-        for (String s : reservations) {
-            String[] parts = s.split(" ");
+    private void createReservationFromString(final List<String> reservationsStrings) {
+        for (String s : reservationsStrings) {
+            String[] parts = s.split(Pattern.quote("."));
             Optional<Client> client = Optional.of(clientController.getClient(parts[0]));
+            Date dateIn;
+            Date dateOut;
 
             try {
                 if (client.isEmpty()) {
+                    System.out.println("Cliente non trovato.");
                     throw new IllegalStateException();
                 }
             } catch (IllegalStateException exception) {
                 System.out.println("Il cliente non è inserito nella lista clienti."
                         + " Prima di procedere inserire il cliente");
+                break;
             }
-            Date dateIn = dateFormatter.parse(parts[1]);
-            Date dateOut = dateFormatter.parse(parts[2]);
-            // Room room = roomController.getRoom(parts[3]); //Prendo la stanza dalla prenotazione
-            Reservation res = new ReservationImpl(client.get(), dateIn, dateOut, null); // Creo l'oggetto prenotazione
+            try {
+                dateIn = dateFormatter.parse(parts[1]);
+                dateOut = dateFormatter.parse(parts[2]);
+            } catch (ParseException e) {
+                System.out.println("ERRORE NEL PARSING DELLE DATE createReservationFromString");
+                e.printStackTrace();
+                break;
+            }
+            Room room = roomController.getRoom(Integer.parseInt(parts[3])); //Prendo la stanza dalla prenotazione
+            Reservation res = new ReservationImpl(client.get(), dateIn, dateOut, room); // Creo l'oggetto prenotazione
             this.allReservation.add(res);
         }
+    }
+
+    @Override
+    public final Set<Reservation> getAllReservation() throws ParseException {
+        this.allReservation.clear();                            //Svuoto la lista delle prenotazioni per riempirla di nuovo
+        List<String> reservations = this.readReservation();     //Prendo le stringhe prenotazioni
+        this.createReservationFromString(reservations);         //Trasformo le stringe in prenotazioni e aggiorno allReservations
+        this.updateReservedDateInRoom(allReservation);          //Aggiorno le date in cui ogni camera è occupata
         return this.allReservation;
     }
 
     @Override
-    public void addReservation(final Reservation reservation) {
+    public final void addReservation(final Reservation reservation) {
         String id = reservation.getClient().getId();
-        Room room = null;
+        String room = String.valueOf(reservation.getRoom().getNumber());
         String dateInS = this.dateFormatter.format(reservation.getDateIn());
         String dateOutS = this.dateFormatter.format(reservation.getDateOut());
-        this.fileManager.fileWriter(id + " " + dateInS + " " + dateOutS + " " + room);
+        this.allReservation.add(reservation);
+        this.fileManager.fileWriter(id + "." + dateInS + "." + dateOutS + "." + room);
+
     }
 
+    public final void updateReservedDateInRoom(final Set<Reservation> reservations) throws ParseException {
+        for (Reservation reservation : reservations) {
+            Set<Date> roomsBusyDates = new TreeSet<>();
+            DateTime checkin = new DateTime(reservation.getDateIn());
+            DateTime checkout = new DateTime(reservation.getDateOut());
+            Days daysBetween = Days.daysBetween(checkin, checkout);
+            for (int i = 0; i <= daysBetween.getDays(); i++) {
+                Date dateToadd = checkin.plusDays(i).toDate();
+                roomsBusyDates.add(dateToadd);
+            }
+            reservation.getRoom().setReservedDate(roomsBusyDates);
+        }
+    }
 }

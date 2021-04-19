@@ -24,4 +24,5 @@ public interface ControllerReservation {
      *          the reservation to add
      */
     void addReservation(Reservation reservation);
+
 }

@@ -1,9 +1,12 @@
 package test;
 
+
 import org.junit.Test;
 
 import controller.Reservation.ControllerReservation;
 import controller.Reservation.ControllerReservationImpl;
+import controller.Room.ControllerRoom;
+import controller.Room.ControllerRoomImpl;
 import model.Reservation.Reservation;
 import model.Reservation.ReservationImpl;
 import model.client.ClientImpl;
@@ -16,6 +19,7 @@ import java.util.Set;
 public class ControllerReservationTest {
 
     private ControllerReservation resContr = new ControllerReservationImpl();
+    private ControllerRoom roomContr = new ControllerRoomImpl();
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YYYY");
  
     @Test
@@ -29,18 +33,19 @@ public class ControllerReservationTest {
     @Test
     public void tryReadOnFile() throws ParseException {
         for (Reservation res : resContr.getAllReservation()) {
-            String dateIn = dateFormatter.format(res.getDateIn());
-            String dateOut = dateFormatter.format(res.getDateOut());
+            String dateIn = this.dateFormatter.format(res.getDateIn());
+            String dateOut = this.dateFormatter.format(res.getDateOut());
             System.out.println(res.getClient().getId() + " " + dateIn + " " + dateOut);
         }
     }
 
     @Test 
     public void tryWriteOnFile() throws ParseException {
-        Date dateIn = dateFormatter.parse("10/12/2020");
-        Date dateOut = dateFormatter.parse("15/12/2020");
-        Reservation newRes = new ReservationImpl(new ClientImpl("Simone", "Albonetti", "LBNSMN99E07D458K"), dateIn, dateOut, null);
+        Date dateIn = this.dateFormatter.parse("10/12/2020");
+        Date dateOut = this.dateFormatter.parse("15/12/2020");
+        Reservation newRes = new ReservationImpl(new ClientImpl("Chiara", "Tozzi", "tzzchr00a50r458l"), dateIn, dateOut, this.roomContr.getRoom(1));
         resContr.addReservation(newRes);
+        System.out.println("Aggiungo questa prenotazione: " + newRes.toString());
     }
 
     @Test
@@ -49,6 +54,11 @@ public class ControllerReservationTest {
         for (Reservation res : allReservations) {
             System.out.println(res.toString());
         }
+    }
+
+    @Test
+    public void tryDifferenceBetweenDays() throws ParseException {
+        this.resContr.getAllReservation();
     }
 }
 
