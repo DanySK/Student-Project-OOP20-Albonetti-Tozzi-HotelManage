@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -31,6 +32,8 @@ public class FindClientView extends JFrame {
      * 
      */
     private static final long serialVersionUID = 1L;
+    private static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final JPanel contentPane;
     private final JTextField textfield;
     private final JLabel label = new JLabel("Inserisci il codice fiscale del cliente desiderato");
@@ -47,7 +50,7 @@ public class FindClientView extends JFrame {
         ControllerClient client = new ControllerClientImpl();
         
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         contentPane = new JPanel();
         contentPane.setBackground(Color.WHITE);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
