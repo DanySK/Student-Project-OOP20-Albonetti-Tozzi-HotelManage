@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -26,6 +27,8 @@ public class NewClientView extends JFrame {
      * 
      */
     private static final long serialVersionUID = 1L;
+    private static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final  JPanel contentPane;
     private final JTextField textField = new JTextField();
     private final JTextField textField1 = new JTextField();
@@ -49,7 +52,7 @@ public class NewClientView extends JFrame {
         setTitle("Client");
         setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         contentPane = new JPanel();
         contentPane.setToolTipText("");
         contentPane.setBackground(Color.WHITE);
@@ -72,8 +75,11 @@ public class NewClientView extends JFrame {
                         name = textField.getText();
                         surname = textField1.getText();
                         id = textField2.getText();
-                        client.insertClient(name, surname, id);
                         if (client.searchClient(id)) {
+                            label2.setText("Cliente già esistente");
+                        }
+                        else if (!name.isEmpty() &&  !surname.isEmpty() && !id.isEmpty()) {
+                            client.insertClient(name, surname, id);
                             label2.setText("Registrazione avvenuta");
                         }
                         else {
@@ -84,27 +90,28 @@ public class NewClientView extends JFrame {
         GroupLayout glcontentPane = new GroupLayout(contentPane);
         glcontentPane.setHorizontalGroup(
             glcontentPane.createParallelGroup(Alignment.TRAILING)
-                .addComponent(label, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                .addComponent(label, GroupLayout.DEFAULT_SIZE, 934, Short.MAX_VALUE)
                 .addGroup(glcontentPane.createSequentialGroup()
                     .addComponent(labelname, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addComponent(textField, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(132, Short.MAX_VALUE))
-                .addGroup(glcontentPane.createSequentialGroup()
-                    .addComponent(labelsurname, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                    .addGap(132))
-                .addGroup(glcontentPane.createSequentialGroup()
-                    .addComponent(labelid, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-                    .addGap(132))
+                    .addContainerGap(642, Short.MAX_VALUE))
                 .addGroup(glcontentPane.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label2, GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
                     .addGap(30)
                     .addComponent(buttonreg, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
+                .addGroup(Alignment.LEADING, glcontentPane.createSequentialGroup()
+                    .addGroup(glcontentPane.createParallelGroup(Alignment.LEADING)
+                        .addGroup(glcontentPane.createSequentialGroup()
+                            .addComponent(labelsurname, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(textField1, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(glcontentPane.createSequentialGroup()
+                            .addComponent(labelid, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(textField2, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(642, Short.MAX_VALUE))
         );
         glcontentPane.setVerticalGroup(
             glcontentPane.createParallelGroup(Alignment.LEADING)
@@ -114,16 +121,15 @@ public class NewClientView extends JFrame {
                     .addGroup(glcontentPane.createParallelGroup(Alignment.BASELINE)
                         .addComponent(labelname, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                         .addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(ComponentPlacement.RELATED)
-                    .addGroup(glcontentPane.createParallelGroup(Alignment.LEADING)
-                        .addGroup(glcontentPane.createSequentialGroup()
-                            .addComponent(labelsurname, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(ComponentPlacement.RELATED)
-                            .addGroup(glcontentPane.createParallelGroup(Alignment.BASELINE)
-                                .addComponent(labelid, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                    .addGap(14)
+                    .addGroup(glcontentPane.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(labelsurname, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
                         .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                    .addGap(18)
+                    .addGroup(glcontentPane.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(labelid, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textField2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
                     .addGroup(glcontentPane.createParallelGroup(Alignment.TRAILING)
                         .addComponent(buttonreg)
                         .addComponent(label2))
