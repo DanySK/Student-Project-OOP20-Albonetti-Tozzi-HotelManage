@@ -2,7 +2,7 @@ package view.HomeHotelManage;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
+
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -73,13 +73,13 @@ public class HomeHotelManageView extends JFrame {
         int counter = 1;
         for (int i = 0; i < size-1; i++) {
           //  for (int j = 1; j < size; j++) {
-                JButton jb = new JButton("Stanza:"  + counter);
-                jb.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 20));
-                jb.setForeground(Color.BLACK);
-                jb.setBackground(new Color(127, 255, 0));
-                jb.addActionListener(al);
+                JButton roomButton = new JButton("Stanza:"  + counter);
+                roomButton.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 20));
+                roomButton.setForeground(Color.BLACK);
+                roomButton.setBackground(new Color(127, 255, 0));
+                roomButton.addActionListener(al);
                 counter++;
-                this.listRoomButton.add(jb);
+                this.listRoomButton.add(roomButton);
         //        }
             }
         JButton suiteButton = new JButton("Suite");
@@ -95,22 +95,25 @@ public class HomeHotelManageView extends JFrame {
 
         this.northPanel.add(reservationButton);
         this.northPanel.add(clientButton);
+<<<<<<< HEAD
         this.northPanel.add(dateChooser);
         this.northPanel.add(buttoncerca);
         
         
+=======
+
+>>>>>>> ed453ed0669522f7293092530a0a19d46211532f
         reservationButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent a) {
+            public void actionPerformed(final ActionEvent a) {
                ReservationsHomeView reservation = new ReservationsHomeView();
                reservation.setVisible(true);
             };
         });
-        
-        
-        clientButton.addActionListener (new ActionListener() {
+
+        clientButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 ClientHomeView client = new ClientHomeView();
                 client.setVisible(true);
             }

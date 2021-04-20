@@ -34,6 +34,14 @@ public class ControllerReservationImpl implements ControllerReservation {
     private Set<Reservation> allReservation = new HashSet<>();
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
+    public ControllerReservationImpl() {
+        try {
+            this.getAllReservation();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private List<String> readReservation() {
         List<String> reservations = this.fileManager.fileReader();
@@ -89,6 +97,16 @@ public class ControllerReservationImpl implements ControllerReservation {
         this.allReservation.add(reservation);
         this.fileManager.fileWriter(id + "." + dateInS + "." + dateOutS + "." + room);
 
+    }
+
+    public final void addReservation(final String cf, final Date dateIn, final Date dateOut, final int roomNumber) {
+        Client client = this.clientController.getClient(cf);
+        Room room = this.roomController.getRoom(roomNumber);
+        Reservation newReservation = new ReservationImpl(client, dateIn, dateOut, room);
+        String dateInS = this.dateFormatter.format(dateIn);
+        String dateOutS = this.dateFormatter.format(dateOut);
+        this.allReservation.add(newReservation);
+        this.fileManager.fileWriter(cf + "." + dateInS + "." + dateOutS + "." + roomNumber);
     }
 
     public final void updateReservedDateInRoom(final Set<Reservation> reservations) throws ParseException {

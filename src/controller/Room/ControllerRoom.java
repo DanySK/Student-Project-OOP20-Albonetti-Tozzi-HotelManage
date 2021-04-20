@@ -20,4 +20,11 @@ public interface ControllerRoom {
      */
     Room getRoom(int number);
 
+    /**
+     * Check that the room number is present.
+     * @param number
+     * @return true if the room is present, otherwise false
+     */
+    boolean isPresent(int number);
+
 }

@@ -56,4 +56,10 @@ public class ControllerRoomImpl implements ControllerRoom {
         return this.rooms.get(number - 1);
     }
 
+
+    @Override
+    public final boolean isPresent(final int number) {
+        return (this.getRoom(number) != null);
+    }
+
 }
