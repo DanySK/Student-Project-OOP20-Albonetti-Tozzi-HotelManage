@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,6 +17,9 @@ public class ReservationsHomeView extends JFrame {
     private static final int HORIZONTALGAP = 20;
     private static final int VERTICALGAP = 25;
     private static final int INFOTEXTFONTDIM = 15;
+
+    private static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
 
     private JPanel buttonsPanel = new JPanel();
     private JButton viewReservationButton = new JButton("Visualizza prenotazioni");
@@ -40,7 +44,7 @@ public class ReservationsHomeView extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
-        this.setBounds(100, 100, 450, 300);
+        this.setBounds(100, 100, SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
         this.buttonsPanelLayout.setHgap(HORIZONTALGAP);
         this.buttonsPanel.setLayout(buttonsPanelLayout);
         this.buttonsPanel.add(deleteReservationButton);

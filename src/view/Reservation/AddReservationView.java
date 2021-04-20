@@ -1,19 +1,16 @@
 package view.Reservation;
 
 import java.awt.BorderLayout;
-
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import com.toedter.calendar.JDateChooser;
 
 import controller.Client.ControllerClient;
@@ -22,13 +19,11 @@ import controller.Reservation.ControllerReservation;
 import controller.Reservation.ControllerReservationImpl;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JDesktopPane;
+import java.util.Optional;
 
 
 public class AddReservationView extends JFrame {
@@ -37,12 +32,17 @@ public class AddReservationView extends JFrame {
      */
     private static final long serialVersionUID = 1L;
 
-    private static final int VERTICALGAP = 18; 
+    private static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private static final int VERTICALGAPCOMPONENT = 18; 
     private static final int SUBTITLEFONTDIM = 20;
     private static final int LABELFONTDIM = 15;
     private static final int VERTICALCONTAINERGAP = 115;
     private static final int HORIZONTALCONTAINERGAP = 147;
-    private static final int HORIZONTALGAP = 36;
+    private static final int HORIZONTALGAPCOMPONENT = 36;
+    private static final int VERTICALGAPFRAME = 23;
+    private static final int HORIZONTALGAPFRAME = 66;
+    private static final int VERTICALGAPNORTHPANEL = 20;
 
     private final JPanel infoPanel = new JPanel();
     private final JPanel buttonPanel = new JPanel();
@@ -68,28 +68,29 @@ public class AddReservationView extends JFrame {
      * Create the frame.
      */
     public AddReservationView() {
-        
+
         ControllerReservation reservationController = new ControllerReservationImpl();
         ControllerClient clientController = new ControllerClientImpl();
+
         //Initialize the frame
         this.getContentPane().setLayout(frameLayout);
-        this.frameLayout.setVgap(23);
-        this.frameLayout.setHgap(66);
+        this.frameLayout.setVgap(VERTICALGAPFRAME);
+        this.frameLayout.setHgap(HORIZONTALGAPFRAME);
         this.setTitle("Aggiungi prenotazione");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setBounds(100, 100, 542, 430);
+        this.setBounds(100, 100, SCREEN_WIDTH / 3, SCREEN_HEIGHT / 2);
 
         //Initialize the north panel
         this.getContentPane().add(infoPanel, BorderLayout.NORTH);
         this.infoPanel.setLayout(infoPanelLayout);
-        this.infoPanelLayout.setVgap(20);
+        this.infoPanelLayout.setVgap(VERTICALGAPNORTHPANEL);
         this.infoLabel.setFont(new Font("Tahoma", Font.PLAIN, SUBTITLEFONTDIM));
         this.infoPanel.add(infoLabel);
 
         //Initialize the south panel
         this.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+        buttonPanelLayout.setAlignment(FlowLayout.TRAILING);
         this.buttonPanel.setLayout(buttonPanelLayout);
-        this.buttonPanelLayout.setAlignment(FlowLayout.RIGHT);
         this.buttonPanel.add(cancelButton);
 
         //Add action listener on SaveButton and add SaveButton in ButtonPanel
@@ -97,16 +98,39 @@ public class AddReservationView extends JFrame {
             public void actionPerformed(final ActionEvent e) {
 
                 String cf = clientTextField.getText();
-                Date dateIn = checkInDateChooser.getDate();
-                Date dateOut = checkOutDateChooser.getDate();
-                Integer room =  Integer.parseInt(roomTextField.getText());
-                reservationController.addReservation(cf, dateIn, dateOut, room);
+                Optional<Date> dateIn = Optional.ofNullable(checkInDateChooser.getDate());
+                Optional<Date> dateOut = Optional.ofNullable(checkOutDateChooser.getDate());
+                String room =  roomTextField.getText();
 
-                System.out.println("Ho aggiunto la prenotazione");
-                clientTextField.setText("");
-                checkInDateChooser.setDate(null);
-                checkOutDateChooser.setDate(null);
-                roomTextField.setText("");
+                if (!cf.isEmpty() && dateIn.isPresent() && dateOut.isPresent() && !room.isEmpty()) {
+                    reservationController.addReservation(cf, dateIn.get(), dateOut.get(), Integer.parseInt(room));
+                    System.out.println("Ho aggiunto la prenotazione");
+                    clientTextField.setText("");
+                    checkInDateChooser.setDate(null);
+                    checkOutDateChooser.setDate(null);
+                    roomTextField.setText("");
+
+                    JDialog successDialog = new JDialog();
+                    JPanel textPanel = new JPanel();
+                    JLabel textLabel = new JLabel("Operazione avvenuta con SUCCESSO");
+                    successDialog.setBounds(SCREEN_WIDTH / 7, SCREEN_HEIGHT / 3, SCREEN_WIDTH / 5, SCREEN_HEIGHT /10);
+                    successDialog.setTitle("Successo");
+                    successDialog.setLayout(new BorderLayout());
+                    successDialog.getContentPane().add(textPanel);
+                    textPanel.add(textLabel);
+                    successDialog.setVisible(true);
+                } else {
+                    JDialog successDialog = new JDialog();
+                    JPanel textPanel = new JPanel();
+                    JLabel textLabel = new JLabel("Operazione FALLITA. Inserire tutti i dati correttamente");
+                    successDialog.setBounds(SCREEN_WIDTH / 7, SCREEN_HEIGHT / 3, SCREEN_WIDTH / 4, SCREEN_HEIGHT /10);
+                    successDialog.setTitle("ERRORE");
+                    successDialog.setLayout(new BorderLayout());
+                    successDialog.getContentPane().add(textPanel);
+                    textPanel.add(textLabel);
+                    successDialog.setVisible(true);
+                    System.out.println("Errore nel salvataggio della prenotazione");
+                } 
             }
         });
         this.buttonPanel.add(saveButton);
@@ -123,13 +147,13 @@ public class AddReservationView extends JFrame {
         dataPanelLayout.setHorizontalGroup(
             dataPanelLayout.createParallelGroup(Alignment.LEADING)
                 .addGroup(dataPanelLayout.createSequentialGroup()
-                    .addGap(36)
+                    .addGap(HORIZONTALGAPCOMPONENT)
                     .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING, false)
                         .addComponent(clientLabel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
                         .addComponent(checkInLabel, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
                         .addComponent(checkOutLabel)
                         .addComponent(roomLabel, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                    .addGap(36)
+                    .addGap(HORIZONTALGAPCOMPONENT)
                     .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING, false)
                             .addComponent(roomTextField)
@@ -145,25 +169,22 @@ public class AddReservationView extends JFrame {
                     .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addComponent(clientLabel)
                         .addComponent(clientTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addGap(18)
+                    .addGap(VERTICALGAPCOMPONENT)
                     .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING)
                         .addGroup(dataPanelLayout.createSequentialGroup()
                             .addComponent(checkInDateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18)
+                            .addGap(VERTICALGAPCOMPONENT)
                             .addComponent(checkOutDateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18)
+                            .addGap(VERTICALGAPCOMPONENT)
                             .addComponent(roomTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addGroup(dataPanelLayout.createSequentialGroup()
                             .addComponent(checkInLabel)
-                            .addGap(18)
+                            .addGap(VERTICALGAPCOMPONENT)
                             .addComponent(checkOutLabel)
-                            .addGap(18)
+                            .addGap(VERTICALGAPCOMPONENT)
                             .addComponent(roomLabel)))
                     .addContainerGap(85, Short.MAX_VALUE))
         );
         dataPanelLayout.setAutoCreateGaps(true);
-
-        
     }
-
 }

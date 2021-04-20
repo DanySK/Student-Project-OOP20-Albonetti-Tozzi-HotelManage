@@ -13,8 +13,8 @@ public static void main(final String[] args) {
 
     private void start() {
         final HomeHotelManageView mainFrame = new HomeHotelManageView();
-        mainFrame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width / 2,
-                Toolkit.getDefaultToolkit().getScreenSize().height / 2);
+        mainFrame.setSize(Toolkit.getDefaultToolkit().getScreenSize().width,
+                Toolkit.getDefaultToolkit().getScreenSize().height);
         mainFrame.pack();
         mainFrame.setVisible(true);
     }

@@ -17,12 +17,13 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 
+import controller.Room.ControllerRoom;
+import controller.Room.ControllerRoomImpl;
 import view.Client.ClientHomeView;
 import view.Reservation.ReservationsHomeView;
 
 import java.awt.GridLayout;
 import java.awt.Button;
-import controller.Room.*;
 import model.room.Room;
 
 
@@ -33,6 +34,7 @@ public class HomeHotelManageView extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     private static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private static final int NUMBEROFROOM = 21;
 
     private JPanel northPanel = new JPanel();
     private JPanel centerPanel = new JPanel();
@@ -43,15 +45,13 @@ public class HomeHotelManageView extends JFrame {
     private JDateChooser dateChooser = new JDateChooser();
     private List<JButton> listRoomButton = new ArrayList<>();
 
-    private int size = 21;
-
     /**
      * Create the frame.
      */
     public HomeHotelManageView() {
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(100, 100, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        this.setBounds(100, 100, SCREEN_WIDTH / 3, SCREEN_HEIGHT / 3);
         this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         this.contentPane.setLayout(new BorderLayout(0, 0));
         this.setContentPane(this.contentPane);
@@ -66,13 +66,12 @@ public class HomeHotelManageView extends JFrame {
         ActionListener al = e -> {
             //add action on button room
         };
+
         /**
          * Initialize button room.
          */
-
         int counter = 1;
-        for (int i = 0; i < size-1; i++) {
-          //  for (int j = 1; j < size; j++) {
+        for (int i = 0; i < NUMBEROFROOM - 1; i++) {
                 JButton roomButton = new JButton("Stanza:"  + counter);
                 roomButton.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 20));
                 roomButton.setForeground(Color.BLACK);
@@ -80,7 +79,6 @@ public class HomeHotelManageView extends JFrame {
                 roomButton.addActionListener(al);
                 counter++;
                 this.listRoomButton.add(roomButton);
-        //        }
             }
         JButton suiteButton = new JButton("Suite");
         suiteButton.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, 20));
@@ -97,7 +95,7 @@ public class HomeHotelManageView extends JFrame {
         this.northPanel.add(clientButton);
         this.northPanel.add(dateChooser);
         this.northPanel.add(buttoncerca);
-        
+
         reservationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent a) {
@@ -113,15 +111,17 @@ public class HomeHotelManageView extends JFrame {
                 client.setVisible(true);
             }
         });
-        
-        buttoncerca.addActionListener (new ActionListener() {
+
+        buttoncerca.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 ControllerRoom roomc = new ControllerRoomImpl();
                 List<Room> list = roomc.getAll();
                 for (var i : list) {
+
                     if (dateChooser.getDate() != null && i.isReservedDate(dateChooser.getDate())) {
                         listRoomButton.get(i.getNumber()).setBackground(new Color(220, 20, 60));
+                        System.out.println("Data trovata " + i);
                     }
                 }
             }
