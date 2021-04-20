@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class MyFileImpl implements MyFile {
            }
            reader.close();
        } catch (IOException e) {
-           System.out.println("Eccezione generata nella lettura del file"); //da generare l'eccezione
+           System.out.println("Eccezione generata nella lettura del file");
        }
        return list;
     }
@@ -52,7 +53,7 @@ public class MyFileImpl implements MyFile {
             writer.close();
             return true;
         } catch (IOException e) {
-            System.out.println("Eccezione generata nella scrittura del file"); //da generare eccezione
+            System.out.println("Eccezione generata nella scrittura del file");
             return false;
         }
     }
@@ -75,6 +76,44 @@ public class MyFileImpl implements MyFile {
         }
         return null;
 
+    }
+    
+    @Override
+    public void emptyfile() {
+        PrintWriter writer;
+        try {
+            writer = new PrintWriter(file);
+            writer.print("");
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Eccezione generata nel svuotare il file");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean deleteline(final String string) {
+        List<String> listw = new LinkedList<>();
+        try {
+            FileReader fr = new FileReader(file);
+            BufferedReader reader = new BufferedReader(fr);
+            String line = reader.readLine();
+            while (line != null) {
+                if (!line.contains(string.toLowerCase()) && !line.equals("")) {
+                   listw.add(line);
+                }
+            line = reader.readLine();
+            }
+            reader.close();
+            this.emptyfile();
+            for (var i: listw) {
+                this.fileWriter(i);
+            }
+            return true;
+        } catch (IOException e) {
+            System.out.println("Eccezione generata nella ricerca del file");
+            return false;
+        }
     }
 
 }

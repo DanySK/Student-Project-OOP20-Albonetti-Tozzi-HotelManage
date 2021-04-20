@@ -29,5 +29,12 @@ public interface ControllerClient{
      */
     Boolean searchClient(String id);
     
+    /**
+     * deleting line
+     * @param id
+     * @return
+     */
+    Boolean deleteLine(String id);
+    
 
 }

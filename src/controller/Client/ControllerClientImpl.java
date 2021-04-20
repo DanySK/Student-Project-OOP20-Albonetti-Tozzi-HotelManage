@@ -53,4 +53,14 @@ public class ControllerClientImpl implements ControllerClient {
         return false;
     }
 
+    @Override
+    public Boolean deleteLine(String id) {
+        if (this.searchClient(id)) {
+            if (myfile.deleteline(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

@@ -38,6 +38,7 @@ public class FindClientView extends JFrame {
     private final JButton buttonSearch = new JButton("Ricerca");
     
     private String id;
+    private final JButton btnElimina = new JButton("Elimina");
 
     /**
      * Create the frame.
@@ -72,7 +73,21 @@ public class FindClientView extends JFrame {
                 }
                 
             }
-    });
+        });
+        
+        btnElimina.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(final MouseEvent e) {
+                id = textfield.getText();
+                if (client.deleteLine(id)) {
+                    lblNonTrovato.setText("Eliminato");
+                }
+                else {
+                    lblNonTrovato.setText("Non Eliminato");
+                }
+                
+            }
+        });
 
         GroupLayout glcontentPane = new GroupLayout(contentPane);
         glcontentPane.setHorizontalGroup(
@@ -80,15 +95,17 @@ public class FindClientView extends JFrame {
                 .addGroup(glcontentPane.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(glcontentPane.createParallelGroup(Alignment.LEADING)
-                        .addGroup(glcontentPane.createSequentialGroup()
-                            .addComponent(textfield, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap())
-                        .addComponent(label, GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                        .addComponent(label, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                         .addGroup(Alignment.TRAILING, glcontentPane.createSequentialGroup()
                             .addComponent(lblNonTrovato, GroupLayout.PREFERRED_SIZE, 253, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
-                            .addComponent(buttonSearch, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-                            .addGap(10))))
+                            .addPreferredGap(ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                            .addGroup(glcontentPane.createParallelGroup(Alignment.LEADING, false)
+                                .addComponent(btnElimina, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonSearch, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                            .addGap(10))
+                        .addGroup(glcontentPane.createSequentialGroup()
+                            .addComponent(textfield, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(233, Short.MAX_VALUE))))
         );
         glcontentPane.setVerticalGroup(
             glcontentPane.createParallelGroup(Alignment.LEADING)
@@ -97,7 +114,9 @@ public class FindClientView extends JFrame {
                     .addComponent(label)
                     .addPreferredGap(ComponentPlacement.UNRELATED)
                     .addComponent(textfield, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+                    .addPreferredGap(ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                    .addComponent(btnElimina)
+                    .addPreferredGap(ComponentPlacement.UNRELATED)
                     .addGroup(glcontentPane.createParallelGroup(Alignment.BASELINE)
                         .addComponent(buttonSearch)
                         .addComponent(lblNonTrovato, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))

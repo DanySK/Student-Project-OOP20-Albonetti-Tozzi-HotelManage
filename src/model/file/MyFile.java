@@ -7,18 +7,31 @@ public interface MyFile {
 
     /**
      * Reading the file.
+     * @return List of string
      */
-    public List<String> fileReader();
+    List<String> fileReader();
 
     /**
-     * Writing on the file
+     * Writing on the file.
      * @param string 
+     * @return boolean
      */
-    public boolean fileWriter(String string);
+    boolean fileWriter(String string);
 
     /**
      * Searching on the file.
      * @param string 
+     * @return string
      */
-    public String fileSearch(String string);        
+    String fileSearch(String string);
+    /**
+     * empty file.
+     */
+    void emptyfile();
+    /**
+     * Delete a line in the file.
+     * @param string
+     * @return boolean
+     */
+    boolean deleteline(String string);
 }
