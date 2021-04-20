@@ -15,10 +15,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.toedter.calendar.JDateChooser;
+
 import view.Client.ClientHomeView;
 import view.Reservation.ReservationsHomeView;
 
 import java.awt.GridLayout;
+import java.awt.Button;
+import controller.Room.*;
+import model.room.Room;
 
 
 public class HomeHotelManageView extends JFrame {
@@ -34,6 +39,8 @@ public class HomeHotelManageView extends JFrame {
     private JPanel contentPane = new JPanel();
     private JButton reservationButton = new JButton("Prenotazioni");
     private JButton clientButton = new JButton("Clienti");
+    private final Button buttoncerca = new Button("cerca disponibilità");
+    private JDateChooser dateChooser = new JDateChooser();
     private List<JButton> listRoomButton = new ArrayList<>();
 
     private int size = 21;
@@ -88,6 +95,8 @@ public class HomeHotelManageView extends JFrame {
 
         this.northPanel.add(reservationButton);
         this.northPanel.add(clientButton);
+        this.northPanel.add(dateChooser);
+        this.northPanel.add(buttoncerca);
         
         
         reservationButton.addActionListener(new ActionListener() {
@@ -106,7 +115,19 @@ public class HomeHotelManageView extends JFrame {
                 client.setVisible(true);
             }
         });
-
+        
+        buttoncerca.addActionListener (new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ControllerRoom roomc = new ControllerRoomImpl();
+                List<Room> list = roomc.getAll();
+                for (var i : list) {
+                    if (dateChooser.getDate() != null && i.isReservedDate(dateChooser.getDate())) {
+                        listRoomButton.get(i.getNumber()).setBackground(new Color(220, 20, 60));
+                    }
+                }
+            }
+        });
     }
 
 }
