@@ -95,14 +95,9 @@ public class HomeHotelManageView extends JFrame {
 
         this.northPanel.add(reservationButton);
         this.northPanel.add(clientButton);
-<<<<<<< HEAD
         this.northPanel.add(dateChooser);
         this.northPanel.add(buttoncerca);
         
-        
-=======
-
->>>>>>> ed453ed0669522f7293092530a0a19d46211532f
         reservationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent a) {
