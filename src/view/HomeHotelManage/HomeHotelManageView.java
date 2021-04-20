@@ -7,8 +7,12 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +21,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.toedter.calendar.JDateChooser;
 
+import controller.Reservation.ControllerReservation;
+import controller.Reservation.ControllerReservationImpl;
 import controller.Room.ControllerRoom;
 import controller.Room.ControllerRoomImpl;
 import view.Client.ClientHomeView;
@@ -24,6 +30,8 @@ import view.Reservation.ReservationsHomeView;
 
 import java.awt.GridLayout;
 import java.awt.Button;
+
+import model.Reservation.Reservation;
 import model.room.Room;
 
 
@@ -115,13 +123,23 @@ public class HomeHotelManageView extends JFrame {
         buttoncerca.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                ControllerRoom roomc = new ControllerRoomImpl();
-                List<Room> list = roomc.getAll();
-                for (var i : list) {
+                ControllerReservation reservationController = new ControllerReservationImpl();
+                Set<Reservation> reservations = new TreeSet<>();
+                try {
+                    reservations = reservationController.getAllReservation();
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                }
+                for (Reservation reservation : reservations) {
+                    Date dateIn = reservation.getDateIn();
+                    Date dateOut = reservation.getDateOut();
+                    int room = (reservation.getRoom().getNumber()) - 1;
 
-                    if (dateChooser.getDate() != null && i.isReservedDate(dateChooser.getDate())) {
-                        listRoomButton.get(i.getNumber()).setBackground(new Color(220, 20, 60));
-                        System.out.println("Data trovata " + i);
+                    if (dateChooser.getDate().after(dateIn) && dateChooser.getDate().before(dateOut)) {
+                        listRoomButton.get(room).setBackground(new Color(220, 20, 60));
+                        System.out.println("La camera " + (room + 1) + " è occupata il " + dateChooser.getDate().toString());
+                    } else {
+                        listRoomButton.get(room).setBackground(new Color(127, 255, 0));
                     }
                 }
             }
