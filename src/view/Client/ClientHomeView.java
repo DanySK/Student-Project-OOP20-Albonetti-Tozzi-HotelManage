@@ -18,6 +18,8 @@ import java.awt.Color;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
+
 import javax.swing.UIManager;
 
 public class ClientHomeView extends JFrame {
@@ -26,6 +28,8 @@ public class ClientHomeView extends JFrame {
      * 
      */
     private static final long serialVersionUID = 1L;
+    private static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final JPanel contentPane;
     private final JButton buttonnewclient = new JButton("Nuvo Cliente");
     private final JButton buttonsearchclient = new JButton("Cerca Cliente");
@@ -37,7 +41,7 @@ public class ClientHomeView extends JFrame {
     public ClientHomeView() {
         setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         contentPane = new JPanel();
         contentPane.setBackground(Color.WHITE);
         contentPane.setBorder(null);
@@ -67,27 +71,28 @@ public class ClientHomeView extends JFrame {
 
         GroupLayout glcontentPane = new GroupLayout(contentPane);
         glcontentPane.setHorizontalGroup(
-                glcontentPane.createParallelGroup(Alignment.TRAILING)
-                        .addGroup(glcontentPane.createSequentialGroup()
-                                .addGap(60)
-                                .addGroup(glcontentPane.createParallelGroup(Alignment.TRAILING)
-                                        .addGroup(Alignment.LEADING, glcontentPane.createSequentialGroup()
-                                                .addComponent(buttonnewclient, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(105)
-                                                .addComponent(buttonsearchclient, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(label, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE))
-                                .addGap(41))
+            glcontentPane.createParallelGroup(Alignment.TRAILING)
+                .addGroup(glcontentPane.createSequentialGroup()
+                    .addGap(60)
+                    .addComponent(label, GroupLayout.DEFAULT_SIZE, 843, Short.MAX_VALUE)
+                    .addGap(41))
+                .addGroup(Alignment.LEADING, glcontentPane.createSequentialGroup()
+                    .addGap(382)
+                    .addGroup(glcontentPane.createParallelGroup(Alignment.TRAILING)
+                        .addComponent(buttonsearchclient, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonnewclient, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 181, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(381, Short.MAX_VALUE))
         );
         glcontentPane.setVerticalGroup(
-                glcontentPane.createParallelGroup(Alignment.LEADING)
-                        .addGroup(glcontentPane.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(label, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-                                .addGap(26)
-                                .addGroup(glcontentPane.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(buttonsearchclient, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(buttonnewclient, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(125, Short.MAX_VALUE))
+            glcontentPane.createParallelGroup(Alignment.LEADING)
+                .addGroup(glcontentPane.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(label, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+                    .addGap(26)
+                    .addComponent(buttonnewclient, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+                    .addGap(18)
+                    .addComponent(buttonsearchclient, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(321, Short.MAX_VALUE))
         );
         contentPane.setLayout(glcontentPane);
     }
