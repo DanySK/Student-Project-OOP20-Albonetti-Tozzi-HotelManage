@@ -19,7 +19,6 @@ public class ReservationImpl implements Reservation {
         this.dateOut = dateOut;
     }
 
-
     @Override
     public final Client getClient() {
         return this.client;

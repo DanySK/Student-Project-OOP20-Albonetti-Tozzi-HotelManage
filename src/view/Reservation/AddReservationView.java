@@ -5,14 +5,30 @@ import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import com.toedter.calendar.JDateChooser;
+
+import controller.Client.ControllerClient;
+import controller.Client.ControllerClientImpl;
+import controller.Reservation.ControllerReservation;
+import controller.Reservation.ControllerReservationImpl;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JDesktopPane;
 
 
 public class AddReservationView extends JFrame {
@@ -42,24 +58,25 @@ public class AddReservationView extends JFrame {
     private final JLabel roomLabel = new JLabel("Stanza");
     private final JDateChooser checkInDateChooser = new JDateChooser();
     private final JDateChooser checkOutDateChooser = new JDateChooser();
-    private final JButton clientButton = new JButton("Scegli");
     private final FlowLayout infoPanelLayout = new FlowLayout();
     private final BorderLayout frameLayout = new BorderLayout();
     private final FlowLayout buttonPanelLayout = new FlowLayout();
     private final GroupLayout dataPanelLayout = new GroupLayout(dataPanel);
-    private final JButton roomButton = new JButton("Scegli");
 
 
     /**
      * Create the frame.
      */
     public AddReservationView() {
+        
+        ControllerReservation reservationController = new ControllerReservationImpl();
+        ControllerClient clientController = new ControllerClientImpl();
         //Initialize the frame
         this.getContentPane().setLayout(frameLayout);
         this.frameLayout.setVgap(23);
         this.frameLayout.setHgap(66);
         this.setTitle("Aggiungi prenotazione");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setBounds(100, 100, 542, 430);
 
         //Initialize the north panel
@@ -74,6 +91,24 @@ public class AddReservationView extends JFrame {
         this.buttonPanel.setLayout(buttonPanelLayout);
         this.buttonPanelLayout.setAlignment(FlowLayout.RIGHT);
         this.buttonPanel.add(cancelButton);
+
+        //Add action listener on SaveButton and add SaveButton in ButtonPanel
+        this.saveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+
+                String cf = clientTextField.getText();
+                Date dateIn = checkInDateChooser.getDate();
+                Date dateOut = checkOutDateChooser.getDate();
+                Integer room =  Integer.parseInt(roomTextField.getText());
+                reservationController.addReservation(cf, dateIn, dateOut, room);
+
+                System.out.println("Ho aggiunto la prenotazione");
+                clientTextField.setText("");
+                checkInDateChooser.setDate(null);
+                checkOutDateChooser.setDate(null);
+                roomTextField.setText("");
+            }
+        });
         this.buttonPanel.add(saveButton);
 
         //Initialize center panel
@@ -85,59 +120,50 @@ public class AddReservationView extends JFrame {
         this.roomTextField.setColumns(10);
         this.clientTextField.setColumns(10);
         this.dataPanel.setLayout(dataPanelLayout);
+        dataPanelLayout.setHorizontalGroup(
+            dataPanelLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(dataPanelLayout.createSequentialGroup()
+                    .addGap(36)
+                    .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING, false)
+                        .addComponent(clientLabel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkInLabel, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkOutLabel)
+                        .addComponent(roomLabel, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                    .addGap(36)
+                    .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING, false)
+                            .addComponent(roomTextField)
+                            .addComponent(checkOutDateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkInDateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(clientTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(250, Short.MAX_VALUE))
+        );
+        dataPanelLayout.setVerticalGroup(
+            dataPanelLayout.createParallelGroup(Alignment.LEADING)
+                .addGroup(dataPanelLayout.createSequentialGroup()
+                    .addGap(34)
+                    .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(clientLabel)
+                        .addComponent(clientTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(18)
+                    .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(dataPanelLayout.createSequentialGroup()
+                            .addComponent(checkInDateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(18)
+                            .addComponent(checkOutDateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(18)
+                            .addComponent(roomTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(dataPanelLayout.createSequentialGroup()
+                            .addComponent(checkInLabel)
+                            .addGap(18)
+                            .addComponent(checkOutLabel)
+                            .addGap(18)
+                            .addComponent(roomLabel)))
+                    .addContainerGap(85, Short.MAX_VALUE))
+        );
         dataPanelLayout.setAutoCreateGaps(true);
 
-
-        this.dataPanelLayout.setHorizontalGroup(
-                this.dataPanelLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(this.dataPanelLayout.createSequentialGroup()
-                    .addGap(HORIZONTALGAP)
-                    .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.LEADING, false)
-                        .addComponent(this.clientLabel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(this.checkInLabel, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(this.checkOutLabel)
-                        .addComponent(this.roomLabel, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                    .addGap(HORIZONTALGAP)
-                    .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(this.dataPanelLayout.createSequentialGroup()
-                            .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.LEADING, false)
-                                .addComponent(this.roomTextField)
-                                .addComponent(this.checkOutDateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(this.checkInDateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(VERTICALGAP)
-                            .addComponent(this.roomButton, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(this.dataPanelLayout.createSequentialGroup()
-                            .addComponent(this.clientTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(VERTICALGAP)
-                            .addComponent(this.clientButton)))
-                    .addContainerGap(HORIZONTALCONTAINERGAP, Short.MAX_VALUE))
-        );
-        this.dataPanelLayout.setVerticalGroup(
-                this.dataPanelLayout.createParallelGroup(Alignment.LEADING)
-                .addGroup(this.dataPanelLayout.createSequentialGroup()
-                    .addGap(34)
-                    .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(this.clientLabel)
-                        .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.BASELINE)
-                            .addComponent(this.clientTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(this.clientButton)))
-                    .addGap(VERTICALGAP)
-                    .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(this.dataPanelLayout.createSequentialGroup()
-                            .addComponent(this.checkInDateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(VERTICALGAP)
-                            .addComponent(this.checkOutDateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(VERTICALGAP)
-                            .addGroup(this.dataPanelLayout.createParallelGroup(Alignment.BASELINE)
-                                .addComponent(this.roomTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(this.roomButton)))
-                        .addGroup(this.dataPanelLayout.createSequentialGroup()
-                            .addComponent(this.checkInLabel)
-                            .addGap(VERTICALGAP)
-                            .addComponent(this.checkOutLabel)
-                            .addGap(VERTICALGAP)
-                            .addComponent(this.roomLabel)))
-                    .addContainerGap(VERTICALCONTAINERGAP, Short.MAX_VALUE))
-        );
+        
     }
+
 }

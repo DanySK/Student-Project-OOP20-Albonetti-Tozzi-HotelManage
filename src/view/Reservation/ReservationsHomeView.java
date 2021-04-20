@@ -4,18 +4,18 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.FlowLayout;
-import java.awt.Component;
-import javax.swing.Box;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ReservationsHomeView extends JFrame {
 
     private static final long serialVersionUID = 0;
+    private static final int HORIZONTALGAP = 20;
+    private static final int VERTICALGAP = 25;
+    private static final int INFOTEXTFONTDIM = 15;
 
     private JPanel buttonsPanel = new JPanel();
     private JButton viewReservationButton = new JButton("Visualizza prenotazioni");
@@ -39,22 +39,26 @@ public class ReservationsHomeView extends JFrame {
         this.setTitle("Prenotazioni");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // this.reservationsFrame.setBounds(100, 100, 406, 271);
+
         this.setBounds(100, 100, 450, 300);
-        this.buttonsPanelLayout.setHgap(20);
+        this.buttonsPanelLayout.setHgap(HORIZONTALGAP);
         this.buttonsPanel.setLayout(buttonsPanelLayout);
         this.buttonsPanel.add(deleteReservationButton);
         this.buttonsPanel.add(modifyReservationButton);
         this.buttonsPanel.add(viewReservationButton);
         this.buttonsPanel.add(addReservationButton);
-
         this.infoPanel.setLayout(infoPanelLayout);
-        this.infoPanelLayout.setVgap(25);
-
-
+        this.infoPanelLayout.setVgap(VERTICALGAP);
         this.getContentPane().add(infoPanel, BorderLayout.NORTH);
-        infoLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+        this.infoLabel.setFont(new Font("Tahoma", Font.PLAIN, INFOTEXTFONTDIM));
+        this.infoPanel.add(infoLabel);
 
-        infoPanel.add(infoLabel);
+        this.addReservationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+               AddReservationView newReservationView = new AddReservationView();
+               newReservationView.setVisible(true);
+            }
+        });
     }
 }

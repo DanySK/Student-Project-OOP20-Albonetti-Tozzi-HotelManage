@@ -1,6 +1,7 @@
 package controller.Reservation;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Set;
 
 import model.Reservation.Reservation;
@@ -24,5 +25,14 @@ public interface ControllerReservation {
      *          the reservation to add
      */
     void addReservation(Reservation reservation);
+
+    /**
+     * Is used to add reservation from view.
+     * @param cf
+     * @param dateIn
+     * @param dateOut
+     * @param roomNumber
+     */
+    void addReservation(String cf, Date dateIn, Date dateOut, int roomNumber);
 
 }
