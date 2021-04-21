@@ -7,21 +7,17 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JDateChooser;
 
-import controller.Reservation.ControllerReservation;
-import controller.Reservation.ControllerReservationImpl;
 import view.Client.ClientHomeView;
 import view.Reservation.ReservationsHomeView;
-import model.Reservation.Reservation;
 
 import java.awt.GridLayout;
 import java.awt.Button;
@@ -48,7 +44,7 @@ public class HomeHotelManageView extends JFrame {
     private final Button findButton = new Button("cerca disponibilità");
     private JDateChooser dateChooser = new JDateChooser();
     private List<JButton> listRoomButton = new ArrayList<>();
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+
     /**
      * Create the frame.
      */
@@ -122,23 +118,12 @@ public class HomeHotelManageView extends JFrame {
         findButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                ControllerReservation reservationController = new ControllerReservationImpl();
-                Set<Reservation> reservations = reservationController.getAllReservation();
+                HomeHotelManageViewLogic logic = new HomeHotelManageViewLogicImpl();
+                Date currentDate = dateChooser.getDate();
 
-                for (Reservation reservation : reservations) {
-                    String dateIn = dateFormatter.format(reservation.getDateIn());
-                    String dateOut = dateFormatter.format(reservation.getDateOut());
-                    String currentDate = dateFormatter.format(dateChooser.getDate());
-                    int room = (reservation.getRoom().getNumber()) - 1;
-
-                    if ((dateChooser.getDate().after(reservation.getDateIn()) && dateChooser.getDate().before(reservation.getDateOut())) 
-                            || dateIn.equals(currentDate)) {
-                        listRoomButton.get(room).setBackground(Color.RED);
-                    }    else if (currentDate.equals(dateOut)) {
-                        listRoomButton.get(room).setBackground(Color.ORANGE);
-                    }   else {
-                        listRoomButton.get(room).setBackground(Color.GREEN);
-                    }
+                for (JButton roomButton : listRoomButton) {
+                    int room = listRoomButton.indexOf(roomButton);
+                    listRoomButton.get(room).setBackground(logic.statusOnDate(currentDate, room));
                 }
             }
         });
