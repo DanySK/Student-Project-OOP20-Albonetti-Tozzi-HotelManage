@@ -8,10 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 
 import controller.Client.ControllerClient;
 import controller.Client.ControllerClientImpl;
@@ -35,13 +32,8 @@ public class ControllerReservationImpl implements ControllerReservation {
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
     public ControllerReservationImpl() {
-        try {
-            this.getAllReservation();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        this.getAllReservation();
     }
-
 
     private List<String> readReservation() {
         List<String> reservations = this.fileManager.fileReader();
@@ -80,11 +72,10 @@ public class ControllerReservationImpl implements ControllerReservation {
     }
 
     @Override
-    public final Set<Reservation> getAllReservation() throws ParseException {
+    public final Set<Reservation> getAllReservation() {
         this.allReservation.clear();                            //Svuoto la lista delle prenotazioni per riempirla di nuovo
         List<String> reservations = this.readReservation();     //Prendo le stringhe prenotazioni
         this.createReservationFromString(reservations);         //Trasformo le stringe in prenotazioni e aggiorno allReservations
-        this.updateReservedDateInRoom(allReservation);          //Aggiorno le date in cui ogni camera è occupata
         return this.allReservation;
     }
 
@@ -107,19 +98,5 @@ public class ControllerReservationImpl implements ControllerReservation {
         String dateOutS = this.dateFormatter.format(dateOut);
         this.allReservation.add(newReservation);
         this.fileManager.fileWriter(cf + "." + dateInS + "." + dateOutS + "." + roomNumber);
-    }
-
-    public final void updateReservedDateInRoom(final Set<Reservation> reservations) throws ParseException {
-        for (Reservation reservation : reservations) {
-            Set<Date> roomsBusyDates = new TreeSet<>();
-            DateTime checkin = new DateTime(reservation.getDateIn());
-            DateTime checkout = new DateTime(reservation.getDateOut());
-            Days daysBetween = Days.daysBetween(checkin, checkout);
-            for (int i = 0; i <= daysBetween.getDays(); i++) {
-                Date dateToadd = checkin.plusDays(i).toDate();
-                roomsBusyDates.add(dateToadd);
-            }
-            reservation.getRoom().setReservedDate(roomsBusyDates);
-        }
     }
 }

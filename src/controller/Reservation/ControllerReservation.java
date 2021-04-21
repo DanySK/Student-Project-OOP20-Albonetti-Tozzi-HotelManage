@@ -1,6 +1,5 @@
 package controller.Reservation;
 
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ public interface ControllerReservation {
      * @return all the reservation.
      * @throws ParseException 
      */
-    Set<Reservation> getAllReservation() throws ParseException;
+    Set<Reservation> getAllReservation();
 
     /**
      * Is used to add a reservation to Reservations.
