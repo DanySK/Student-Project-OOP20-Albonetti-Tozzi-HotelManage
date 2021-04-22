@@ -65,17 +65,17 @@ public class ControllerReservationImpl implements ControllerReservation {
                 e.printStackTrace();
                 break;
             }
-            Room room = roomController.getRoom(Integer.parseInt(parts[3])); //Prendo la stanza dalla prenotazione
-            Reservation res = new ReservationImpl(client.get(), dateIn, dateOut, room); // Creo l'oggetto prenotazione
+            Room room = roomController.getRoom(Integer.parseInt(parts[3]));
+            Reservation res = new ReservationImpl(client.get(), dateIn, dateOut, room);
             this.allReservation.add(res);
         }
     }
 
     @Override
     public final Set<Reservation> getAllReservation() {
-        this.allReservation.clear();                            //Svuoto la lista delle prenotazioni per riempirla di nuovo
-        List<String> reservations = this.readReservation();     //Prendo le stringhe prenotazioni
-        this.createReservationFromString(reservations);         //Trasformo le stringe in prenotazioni e aggiorno allReservations
+        this.allReservation.clear();
+        List<String> reservations = this.readReservation();
+        this.createReservationFromString(reservations);
         return this.allReservation;
     }
 
