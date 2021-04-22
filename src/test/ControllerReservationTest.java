@@ -1,6 +1,9 @@
 package test;
 
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 import controller.Client.ControllerClient;
@@ -74,6 +77,16 @@ public class ControllerReservationTest {
         for (Reservation res2 : this.resContr.getAllReservation()) {
             System.out.println(res2.toString());
         }
+    }
+    
+    @Test
+    public void tryJoda() {
+        for (Reservation reservation : resContr.getAllReservation()) {
+            System.out.println(reservation.getDateIn());
+            DateTimeFormatter format = DateTimeFormat.forPattern("E M d HH:mm:ss z yyyy");
+   //         System.out.println( format.print(reservation.getDateIn()));
+        }
+        
     }
 }
 

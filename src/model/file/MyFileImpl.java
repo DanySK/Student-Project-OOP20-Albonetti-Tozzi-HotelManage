@@ -11,18 +11,20 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class MyFileImpl implements MyFile {
 
     private final File file;
-    private List<String> list = new LinkedList<>();
+    private Set<String> list = new TreeSet<>();
 
     public MyFileImpl(final URL fileName) {
         file = new File(fileName.getPath());
     }
 
     @Override
-    public List<String> fileReader() {
+    public final Set<String> fileReader() {
        try {
            FileReader fr = new FileReader(file);
            BufferedReader reader = new BufferedReader(fr);
@@ -43,7 +45,7 @@ public class MyFileImpl implements MyFile {
     }
 
     @Override
-    public boolean fileWriter(final String string) {
+    public final boolean fileWriter(final String string) {
         try {
             FileWriter fr = new FileWriter(file, true);
             BufferedWriter writer = new BufferedWriter(fr);
@@ -59,7 +61,7 @@ public class MyFileImpl implements MyFile {
     }
 
     @Override
-    public String fileSearch(final String string) {
+    public final String fileSearch(final String string) {
         try {
             FileReader fr = new FileReader(file);
             BufferedReader reader = new BufferedReader(fr);
@@ -77,9 +79,9 @@ public class MyFileImpl implements MyFile {
         return null;
 
     }
-    
+
     @Override
-    public void emptyfile() {
+    public final void emptyfile() {
         PrintWriter writer;
         try {
             writer = new PrintWriter(file);
@@ -92,7 +94,7 @@ public class MyFileImpl implements MyFile {
     }
 
     @Override
-    public boolean deleteline(final String string) {
+    public final boolean deleteline(final String string) {
         List<String> listw = new LinkedList<>();
         try {
             FileReader fr = new FileReader(file);

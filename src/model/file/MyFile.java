@@ -1,6 +1,6 @@
 package model.file;
 
-import java.util.List;
+import java.util.Set;
 
 public interface MyFile {
 
@@ -9,7 +9,7 @@ public interface MyFile {
      * Reading the file.
      * @return List of string
      */
-    List<String> fileReader();
+    Set<String> fileReader();
 
     /**
      * Writing on the file.
@@ -34,6 +34,5 @@ public interface MyFile {
      * @return boolean
      */
     boolean deleteline(String string);
-    
-    
+
 }

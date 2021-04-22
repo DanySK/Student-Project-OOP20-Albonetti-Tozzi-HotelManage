@@ -58,6 +58,7 @@ public class AddReservationView extends JFrame {
     private final BorderLayout frameLayout = new BorderLayout();
     private final FlowLayout buttonPanelLayout = new FlowLayout();
     private final GroupLayout dataPanelLayout = new GroupLayout(dataPanel);
+    private final JButton deleteButton = new JButton("Elimina");
 
     /**
      * Create the frame.
@@ -90,7 +91,6 @@ public class AddReservationView extends JFrame {
         // Add action listener on SaveButton and add SaveButton in ButtonPanel
         this.saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent e) {
-
                 String cf = clientTextField.getText();
                 Optional<Date> dateIn = Optional.ofNullable(checkInDateChooser.getDate());
                 Optional<Date> dateOut = Optional.ofNullable(checkOutDateChooser.getDate());
@@ -103,18 +103,44 @@ public class AddReservationView extends JFrame {
                     checkInDateChooser.setDate(null);
                     checkOutDateChooser.setDate(null);
                     roomTextField.setText("");
-
-                    JDialogView successDialog = new JDialogView("SUCCESSO", "Operazione avvenuta con SUCCESSO");
+                    JDialogView successDialog = new JDialogView("SUCCESSO", "Inserimento avvenuto con SUCCESSO");
                     successDialog.setVisible(true);
 
                 } else {
-                    JDialogView failDialog = new JDialogView("ERRORE", "Operazione FALLITA. Inserire tutti i dati correttamente");
+                    JDialogView failDialog = new JDialogView("ERRORE", "Inserimento FALLITO. Inserire tutti i dati correttamente");
                     failDialog.setVisible(true);
                     System.out.println("Errore nel salvataggio della prenotazione");
                 }
             }
         });
+
+        this.deleteButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+                String cf = clientTextField.getText();
+                Optional<Date> dateIn = Optional.ofNullable(checkInDateChooser.getDate());
+                Optional<Date> dateOut = Optional.ofNullable(checkOutDateChooser.getDate());
+                String room = roomTextField.getText();
+
+                if (!cf.isEmpty() && dateIn.isPresent() && dateOut.isPresent() && !room.isEmpty()) {
+                    reservationController.removeReservation(cf, dateIn.get(), dateOut.get(), Integer.parseInt(room));
+                    System.out.println("Ho rimosso la prenotazione");
+                    clientTextField.setText("");
+                    checkInDateChooser.setDate(null);
+                    checkOutDateChooser.setDate(null);
+                    roomTextField.setText("");
+                    JDialogView successDialog = new JDialogView("SUCCESSO", "Rimozione avvenuta con SUCCESSO");
+                    successDialog.setVisible(true);
+
+                } else {
+                    JDialogView failDialog = new JDialogView("ERRORE", "Rimozione FALLITA. Inserire tutti i dati correttamente");
+                    failDialog.setVisible(true);
+                    System.out.println("Errore nell' eliminazione della prenotazione");
+                }
+            }
+        });
+
         this.buttonPanel.add(saveButton);
+        this.buttonPanel.add(deleteButton);
 
         // Initialize center panel
         this.getContentPane().add(dataPanel, BorderLayout.CENTER);

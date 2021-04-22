@@ -1,19 +1,25 @@
 package controller.Client;
-import model.client.*;
-import model.file.*;
+
 
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import model.client.Client;
+import model.client.ClientImpl;
+import model.file.MyFile;
+import model.file.MyFileImpl;
 
 public class ControllerClientImpl implements ControllerClient {
 
     private final List<Client> list = new LinkedList<>();
-    private List<String> lists = new LinkedList<>();
+    private Set<String> lists = new TreeSet<>();
     private final URL clientUrl;
     private final String nameFile = "Clients.txt";
     private MyFile myfile;
-    
+
     public ControllerClientImpl() {
         clientUrl = ClassLoader.getSystemResource(nameFile);
         myfile = new MyFileImpl(clientUrl);
@@ -24,19 +30,19 @@ public class ControllerClientImpl implements ControllerClient {
     }
  
     @Override
-    public List<String> getAllClient() {
+    public final Set<String> getAllClient() {
         return lists;
     }
 
     @Override
-    public void insertClient(final String name, final String surname, final String id) {
+    public final void insertClient(final String name, final String surname, final String id) {
         lists.add(name + "." + surname + "." + id);
         list.add(new ClientImpl(name, surname, id));
         myfile.fileWriter(name + "." + surname + "." + id);
     }
 
     @Override
-    public Client getClient(final String id) {
+    public final Client getClient(final String id) {
         for (var i: list) {
             if ((i.getId()).equals(id)) {
                 return i;
@@ -46,7 +52,7 @@ public class ControllerClientImpl implements ControllerClient {
     }
 
     @Override
-    public Boolean searchClient(String id) {
+    public final Boolean searchClient(final String id) {
        if (myfile.fileSearch(id) != null) {
            return true;
        }
@@ -54,7 +60,7 @@ public class ControllerClientImpl implements ControllerClient {
     }
 
     @Override
-    public Boolean deleteLine(String id) {
+    public final Boolean deleteLine(final String id) {
         if (this.searchClient(id)) {
             if (myfile.deleteline(id)) {
                 return true;

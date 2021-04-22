@@ -38,6 +38,8 @@ public interface ControllerReservation {
      * This method remove a reservation.
      * @param reservation
      */
-    void deleteReservation(Reservation reservation);
+    void removeReservation(Reservation reservation);
+
+    void removeReservation(String cf, Date date, Date date2, int roomNumber);
 
 }

@@ -1,17 +1,17 @@
 package controller.Client;
 
-import java.util.List;
+import java.util.Set;
 
 import model.client.Client;
 
-public interface ControllerClient{
+public interface ControllerClient {
     /**
      * @return the list of client
      */
-    List<String> getAllClient();
-    
+    Set<String> getAllClient();
+
     /**
-     * create a new client and inserts it in the file
+     * create a new client and inserts it in the file.
      * @param name 
      * @param surname
      * @param id (codice fiscale)
@@ -22,19 +22,19 @@ public interface ControllerClient{
      * @param id (codice fiscale)
      */
     Client getClient(String id);
-   
+
     /**
      * @return true if the client is present otherwise false
      * @param id (codice fiscale)
      */
     Boolean searchClient(String id);
-    
+
     /**
-     * deleting line
+     * deleting line.
      * @param id
-     * @return
+     * @return the result of elimination
      */
     Boolean deleteLine(String id);
-    
+
 
 }

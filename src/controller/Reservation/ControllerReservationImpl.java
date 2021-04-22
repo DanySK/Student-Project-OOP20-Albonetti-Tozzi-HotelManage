@@ -35,12 +35,20 @@ public class ControllerReservationImpl implements ControllerReservation {
         this.getAllReservation();
     }
 
-    private List<String> readReservation() {
-        List<String> reservations = this.fileManager.fileReader();
+    private Set<String> readReservation() {
+        Set<String> reservations = this.fileManager.fileReader();
         return reservations;
     }
 
-    private void createReservationFromString(final List<String> reservationsStrings) {
+    private void writeReservation(final Reservation reservation) {
+        this.fileManager.fileWriter(reservation.toString());
+    }
+
+    private void deleteReservation(final Reservation reservation) {
+        this.fileManager.deleteline(reservation.toString());
+    }
+
+    private void createReservationFromString(final Set<String> reservationsStrings) {
         for (String s : reservationsStrings) {
             String[] parts = s.split(Pattern.quote("."));
             Optional<Client> client = Optional.of(clientController.getClient(parts[0]));
@@ -74,38 +82,36 @@ public class ControllerReservationImpl implements ControllerReservation {
     @Override
     public final Set<Reservation> getAllReservation() {
         this.allReservation.clear();
-        List<String> reservations = this.readReservation();
+        Set<String> reservations = this.readReservation();
         this.createReservationFromString(reservations);
         return this.allReservation;
     }
 
     @Override
     public final void addReservation(final Reservation reservation) {
-        String id = reservation.getClient().getId();
-        String room = String.valueOf(reservation.getRoom().getNumber());
-        String dateInS = this.dateFormatter.format(reservation.getDateIn());
-        String dateOutS = this.dateFormatter.format(reservation.getDateOut());
         this.allReservation.add(reservation);
-        this.fileManager.fileWriter(id + "." + dateInS + "." + dateOutS + "." + room);
+        this.writeReservation(reservation);
     }
 
     public final void addReservation(final String cf, final Date dateIn, final Date dateOut, final int roomNumber) {
         Client client = this.clientController.getClient(cf);
         Room room = this.roomController.getRoom(roomNumber);
         Reservation newReservation = new ReservationImpl(client, dateIn, dateOut, room);
-        String dateInS = this.dateFormatter.format(dateIn);
-        String dateOutS = this.dateFormatter.format(dateOut);
         this.allReservation.add(newReservation);
-        this.fileManager.fileWriter(cf + "." + dateInS + "." + dateOutS + "." + roomNumber);
+        this.writeReservation(newReservation);
     }
 
     @Override
-    public final void deleteReservation(final Reservation reservation) {
-        String cf = reservation.getClient().getId();
-        String room = String.valueOf(reservation.getRoom().getNumber());
-        String dateInS = this.dateFormatter.format(reservation.getDateIn());
-        String dateOutS = this.dateFormatter.format(reservation.getDateOut());
+    public final void removeReservation(final Reservation reservation) {
         this.allReservation.remove(reservation);
-        this.fileManager.deleteline(cf + "." + dateInS + "." + dateOutS + "." + room);
+        this.deleteReservation(reservation);
+    }
+
+    @Override
+    public final void removeReservation(final String cf, final Date dateIn, final Date dateOut, final int roomNumber) {
+        Client client = this.clientController.getClient(cf);
+        Room room = this.roomController.getRoom(roomNumber);
+        Reservation newReservation = new ReservationImpl(client, dateIn, dateOut, room);
+        this.deleteReservation(newReservation);
     }
 }

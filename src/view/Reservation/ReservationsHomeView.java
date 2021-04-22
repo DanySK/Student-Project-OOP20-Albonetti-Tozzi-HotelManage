@@ -64,5 +64,13 @@ public class ReservationsHomeView extends JFrame {
                newReservationView.setVisible(true);
             }
         });
+
+        this.viewReservationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                ShowReservationView newReservationShow = new ShowReservationView();
+                newReservationShow.setVisible(true);
+            }
+        });
     }
 }

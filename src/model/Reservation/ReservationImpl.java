@@ -1,5 +1,6 @@
 package model.Reservation;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import model.client.Client;
@@ -11,6 +12,7 @@ public class ReservationImpl implements Reservation {
     private Room room;
     private Date dateIn;
     private Date dateOut;
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
     public ReservationImpl(final Client client, final Date dateIn, final Date dateOut, final Room room) {
         this.client = client;
@@ -61,7 +63,6 @@ public class ReservationImpl implements Reservation {
 
     @Override
     public final String toString() {
-        return "client=" + client.getId() + ", room=" + room.getNumber() + ", dateIn=" + dateIn + ", dateOut=" + dateOut
-                + "]";
+        return client.getId() + "." + this.dateFormatter.format(dateIn) + "." + this.dateFormatter.format(dateOut) + "." + this.room.getNumber();
     }
 }
