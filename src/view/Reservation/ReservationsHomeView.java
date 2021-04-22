@@ -56,21 +56,33 @@ public class ReservationsHomeView extends JFrame {
         this.getContentPane().add(infoPanel, BorderLayout.NORTH);
         this.infoLabel.setFont(new Font("Tahoma", Font.PLAIN, INFOTEXTFONTDIM));
         this.infoPanel.add(infoLabel);
-
+ 
         this.addReservationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                AddReservationView newReservationView = new AddReservationView();
                newReservationView.setVisible(true);
+               newReservationView.pack();
             }
         });
 
+        this.deleteReservationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+               AddReservationView newReservationView = new AddReservationView();
+               newReservationView.setVisible(true);
+               newReservationView.pack();
+            }
+        });
         this.viewReservationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 ShowReservationView newReservationShow = new ShowReservationView();
                 newReservationShow.setVisible(true);
+                newReservationShow.pack();
             }
         });
+
+        this.modifyReservationButton.setEnabled(false);
     }
 }

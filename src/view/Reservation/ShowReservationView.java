@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextField;
+import java.awt.Font;
 
 public class ShowReservationView extends JFrame {
 
@@ -40,12 +41,15 @@ public class ShowReservationView extends JFrame {
         Set<Reservation> reservations = reservationController.getAllReservation();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, SCREEN_WIDTH / 3, SCREEN_HEIGHT / 2);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         this.scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         this.getContentPane().add(scrollPane, BorderLayout.CENTER);
+        textArea.setTabSize(20);
+        textArea.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
         this.scrollPane.setViewportView(textArea);
-        this.textArea.setColumns(40);
+        this.textArea.setColumns(38);
         this.textArea.setEditable(false);
 
         for (Reservation reservation : reservations) {

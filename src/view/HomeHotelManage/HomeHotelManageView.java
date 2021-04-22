@@ -20,7 +20,6 @@ import view.Client.ClientHomeView;
 import view.Reservation.ReservationsHomeView;
 
 import java.awt.GridLayout;
-import java.awt.Button;
 
 public class HomeHotelManageView extends JFrame {
     /**
@@ -41,7 +40,7 @@ public class HomeHotelManageView extends JFrame {
     private JPanel contentPane = new JPanel();
     private JButton reservationButton = new JButton("Prenotazioni");
     private JButton clientButton = new JButton("Clienti");
-    private final Button findButton = new Button("cerca disponibilità");
+    private final JButton findButton = new JButton("Cerca disponibilità");
     private JDateChooser dateChooser = new JDateChooser();
     private List<JButton> listRoomButton = new ArrayList<>();
 

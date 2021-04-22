@@ -44,7 +44,7 @@ public class AddReservationView extends JFrame {
     private final JPanel buttonPanel = new JPanel();
     private final JTextField roomTextField = new JTextField();
     private final JTextField clientTextField = new JTextField();
-    private final JLabel infoLabel = new JLabel("Inserire i dati per confermare la prenotazione");
+    private final JLabel infoLabel = new JLabel("Inserire i dati della prenotazione");
     private final JButton saveButton = new JButton("Salva");
     private final JButton cancelButton = new JButton("Annulla");
     private final JPanel dataPanel = new JPanel();
