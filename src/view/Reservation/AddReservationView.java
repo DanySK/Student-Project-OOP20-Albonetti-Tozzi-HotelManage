@@ -113,7 +113,7 @@ public class AddReservationView extends JFrame {
                     JDialog successDialog = new JDialog();
                     JPanel textPanel = new JPanel();
                     JLabel textLabel = new JLabel("Operazione avvenuta con SUCCESSO");
-                    successDialog.setBounds(SCREEN_WIDTH / 7, SCREEN_HEIGHT / 3, SCREEN_WIDTH / 5, SCREEN_HEIGHT /10);
+                    successDialog.setBounds(SCREEN_WIDTH / 7, SCREEN_HEIGHT / 3, SCREEN_WIDTH / 5, SCREEN_HEIGHT / 10);
                     successDialog.setTitle("Successo");
                     successDialog.setLayout(new BorderLayout());
                     successDialog.getContentPane().add(textPanel);
@@ -123,7 +123,7 @@ public class AddReservationView extends JFrame {
                     JDialog successDialog = new JDialog();
                     JPanel textPanel = new JPanel();
                     JLabel textLabel = new JLabel("Operazione FALLITA. Inserire tutti i dati correttamente");
-                    successDialog.setBounds(SCREEN_WIDTH / 7, SCREEN_HEIGHT / 3, SCREEN_WIDTH / 4, SCREEN_HEIGHT /10);
+                    successDialog.setBounds(SCREEN_WIDTH / 7, SCREEN_HEIGHT / 3, SCREEN_WIDTH / 4, SCREEN_HEIGHT / 10);
                     successDialog.setTitle("ERRORE");
                     successDialog.setLayout(new BorderLayout());
                     successDialog.getContentPane().add(textPanel);

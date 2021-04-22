@@ -3,6 +3,8 @@ package test;
 
 import org.junit.Test;
 
+import controller.Client.ControllerClient;
+import controller.Client.ControllerClientImpl;
 import controller.Reservation.ControllerReservation;
 import controller.Reservation.ControllerReservationImpl;
 import controller.Room.ControllerRoom;
@@ -20,7 +22,8 @@ public class ControllerReservationTest {
 
     private ControllerReservation resContr = new ControllerReservationImpl();
     private ControllerRoom roomContr = new ControllerRoomImpl();
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/YYYY");
+    private ControllerClient clientContr = new ControllerClientImpl();
+    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yy");
  
     @Test
     public void tryUsingCalendar() throws ParseException {
@@ -56,9 +59,21 @@ public class ControllerReservationTest {
         }
     }
 
-    @Test
-    public void tryDifferenceBetweenDays() throws ParseException {
-        this.resContr.getAllReservation();
+    @Test 
+    public void tryDeleteOnFile() throws ParseException {
+        Date dateIn = this.dateFormatter.parse("18/04/2021");
+        Date dateOut = this.dateFormatter.parse("22/04/2021");
+        int numberOfRoom = 6;
+        Reservation res = new ReservationImpl(this.clientContr.getClient("tzzchr00a50r458l"), dateIn, dateOut, this.roomContr.getRoom(numberOfRoom));
+        this.resContr.addReservation(res);
+        for (Reservation res1 : this.resContr.getAllReservation()) {
+            System.out.println(res1.toString());
+        }
+        System.out.println("\n\n\n");
+        this.resContr.deleteReservation(res);
+        for (Reservation res2 : this.resContr.getAllReservation()) {
+            System.out.println(res2.toString());
+        }
     }
 }
 

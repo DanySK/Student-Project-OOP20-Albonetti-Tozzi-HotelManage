@@ -11,8 +11,13 @@ import model.Reservation.Reservation;
 
 public class HomeHotelManageViewLogicImpl implements HomeHotelManageViewLogic {
 
-    private final ControllerReservation reservationController = new ControllerReservationImpl();
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+    private final ControllerReservation reservationController;
+    private SimpleDateFormat dateFormatter;
+
+    public HomeHotelManageViewLogicImpl() {
+        this.reservationController = new ControllerReservationImpl();
+        this.dateFormatter = new SimpleDateFormat("dd/MM/yy");
+    }
 
 
     @Override

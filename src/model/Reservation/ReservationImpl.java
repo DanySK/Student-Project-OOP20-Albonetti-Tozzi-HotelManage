@@ -61,7 +61,7 @@ public class ReservationImpl implements Reservation {
 
     @Override
     public final String toString() {
-        return "ReservationImpl [client=" + client.toString() + ", room=" + room.toString() + ", dateIn=" + dateIn + ", dateOut=" + dateOut
+        return "client=" + client.getId() + ", room=" + room.getNumber() + ", dateIn=" + dateIn + ", dateOut=" + dateOut
                 + "]";
     }
 }

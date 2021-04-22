@@ -34,4 +34,10 @@ public interface ControllerReservation {
      */
     void addReservation(String cf, Date dateIn, Date dateOut, int roomNumber);
 
+    /**
+     * This method remove a reservation.
+     * @param reservation
+     */
+    void deleteReservation(Reservation reservation);
+
 }

@@ -34,4 +34,6 @@ public interface MyFile {
      * @return boolean
      */
     boolean deleteline(String string);
+    
+    
 }

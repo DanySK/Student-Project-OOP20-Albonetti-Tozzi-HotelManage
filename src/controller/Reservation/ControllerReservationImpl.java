@@ -73,7 +73,8 @@ public class ControllerReservationImpl implements ControllerReservation {
 
     @Override
     public final Set<Reservation> getAllReservation() {
-        this.allReservation.clear();                            //Svuoto la lista delle prenotazioni per riempirla di nuovo
+        this.allReservation.clear(); 
+       // this.fileManager.//Svuoto la lista delle prenotazioni per riempirla di nuovo
         List<String> reservations = this.readReservation();     //Prendo le stringhe prenotazioni
         this.createReservationFromString(reservations);         //Trasformo le stringe in prenotazioni e aggiorno allReservations
         return this.allReservation;
@@ -81,13 +82,8 @@ public class ControllerReservationImpl implements ControllerReservation {
 
     @Override
     public final void addReservation(final Reservation reservation) {
-        String id = reservation.getClient().getId();
-        String room = String.valueOf(reservation.getRoom().getNumber());
-        String dateInS = this.dateFormatter.format(reservation.getDateIn());
-        String dateOutS = this.dateFormatter.format(reservation.getDateOut());
         this.allReservation.add(reservation);
-        this.fileManager.fileWriter(id + "." + dateInS + "." + dateOutS + "." + room);
-
+        this.fileManager.fileWriter(this.reservationToString(reservation));
     }
 
     public final void addReservation(final String cf, final Date dateIn, final Date dateOut, final int roomNumber) {
@@ -98,5 +94,20 @@ public class ControllerReservationImpl implements ControllerReservation {
         String dateOutS = this.dateFormatter.format(dateOut);
         this.allReservation.add(newReservation);
         this.fileManager.fileWriter(cf + "." + dateInS + "." + dateOutS + "." + roomNumber);
+    }
+
+    @Override
+    public final void deleteReservation(final Reservation reservation) {
+        this.allReservation.remove(reservation);
+        this.fileManager.deleteline(this.reservationToString(reservation));
+    }
+
+    private String reservationToString(final Reservation reservation) {
+        String cf = reservation.getClient().getId();
+        String room = String.valueOf(reservation.getRoom().getNumber());
+        String dateInS = this.dateFormatter.format(reservation.getDateIn());
+        String dateOutS = this.dateFormatter.format(reservation.getDateOut());
+        String reservationString = cf + "." + dateInS + "." + dateOutS + "." + room;
+        return reservationString;
     }
 }
