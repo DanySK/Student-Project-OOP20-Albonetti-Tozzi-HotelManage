@@ -39,6 +39,9 @@ public class AddReservationView extends JFrame {
     private static final int VERTICALGAPFRAME = 23;
     private static final int HORIZONTALGAPFRAME = 66;
     private static final int VERTICALGAPNORTHPANEL = 20;
+    private static final int CHECKINLABELPREF = 105;
+    private static final int ROOMLABELPREF = 110;
+    private static final int HORIZONTALGROUPGAP = 34;
 
     private final JPanel infoPanel = new JPanel();
     private final JPanel buttonPanel = new JPanel();
@@ -155,9 +158,9 @@ public class AddReservationView extends JFrame {
                 .addGroup(dataPanelLayout.createSequentialGroup().addGap(HORIZONTALGAPCOMPONENT)
                         .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING, false)
                                 .addComponent(clientLabel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(checkInLabel, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(checkInLabel, GroupLayout.PREFERRED_SIZE, CHECKINLABELPREF, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(checkOutLabel)
-                                .addComponent(roomLabel, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                                .addComponent(roomLabel, GroupLayout.DEFAULT_SIZE, ROOMLABELPREF, Short.MAX_VALUE))
                         .addGap(HORIZONTALGAPCOMPONENT)
                         .addGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING).addGroup(dataPanelLayout
                                 .createParallelGroup(Alignment.LEADING, false).addComponent(roomTextField)
@@ -169,7 +172,7 @@ public class AddReservationView extends JFrame {
                                         GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(HORIZONTALCONTAINERGAP, Short.MAX_VALUE)));
         dataPanelLayout.setVerticalGroup(dataPanelLayout.createParallelGroup(Alignment.LEADING).addGroup(dataPanelLayout
-                .createSequentialGroup().addGap(34)
+                .createSequentialGroup().addGap(HORIZONTALGROUPGAP)
                 .addGroup(dataPanelLayout
                         .createParallelGroup(Alignment.LEADING).addComponent(clientLabel).addComponent(clientTextField,
                                 GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -197,11 +200,15 @@ public class AddReservationView extends JFrame {
          * 
          */
         private static final long serialVersionUID = 1L;
+        private static final int POSITIONX = 7;
+        private static final int POSITIONY = 3;
+        private static final int WIDTH = 4;
+        private static final int HEIGHT = 10;
 
         JDialogView(final String title, final String message) {
             JPanel textPanel = new JPanel();
             JLabel textLabel = new JLabel(message);
-            this.setBounds(SCREEN_WIDTH / 7, SCREEN_HEIGHT / 3, SCREEN_WIDTH / 4, SCREEN_HEIGHT / 10);
+            this.setBounds(SCREEN_WIDTH / POSITIONX, SCREEN_HEIGHT / POSITIONY, SCREEN_WIDTH / WIDTH, SCREEN_HEIGHT / HEIGHT);
             this.setTitle(title);
             this.setLayout(new BorderLayout());
             this.getContentPane().add(textPanel); textPanel.add(textLabel);
