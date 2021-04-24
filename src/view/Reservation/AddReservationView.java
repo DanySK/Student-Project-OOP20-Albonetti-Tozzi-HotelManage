@@ -42,6 +42,7 @@ public class AddReservationView extends JFrame {
     private static final int CHECKINLABELPREF = 105;
     private static final int ROOMLABELPREF = 110;
     private static final int HORIZONTALGROUPGAP = 34;
+    private static final Font FONT = new Font("Tahoma", Font.PLAIN, LABELFONTDIM);
 
     private final JPanel infoPanel = new JPanel();
     private final JPanel buttonPanel = new JPanel();
@@ -91,7 +92,9 @@ public class AddReservationView extends JFrame {
         this.buttonPanel.setLayout(buttonPanelLayout);
         this.buttonPanel.add(cancelButton);
 
-        // Add action listener on SaveButton and add SaveButton in ButtonPanel
+        /**
+         * Action listener for save button
+         */
         this.saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent e) {
                 String cf = clientTextField.getText();
@@ -117,6 +120,9 @@ public class AddReservationView extends JFrame {
             }
         });
 
+        /**
+         * Action listener for delete button
+         */
         this.deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent e) {
                 String cf = clientTextField.getText();
@@ -133,7 +139,6 @@ public class AddReservationView extends JFrame {
                     roomTextField.setText("");
                     JDialogView successDialog = new JDialogView("SUCCESSO", "Rimozione avvenuta con SUCCESSO");
                     successDialog.setVisible(true);
-
                 } else {
                     JDialogView failDialog = new JDialogView("ERRORE", "Rimozione FALLITA. Inserire tutti i dati correttamente");
                     failDialog.setVisible(true);
@@ -147,10 +152,10 @@ public class AddReservationView extends JFrame {
 
         // Initialize center panel
         this.getContentPane().add(dataPanel, BorderLayout.CENTER);
-        this.clientLabel.setFont(new Font("Tahoma", Font.PLAIN, LABELFONTDIM));
-        this.checkInLabel.setFont(new Font("Tahoma", Font.PLAIN, LABELFONTDIM));
-        this.checkOutLabel.setFont(new Font("Tahoma", Font.PLAIN, LABELFONTDIM));
-        this.roomLabel.setFont(new Font("Tahoma", Font.PLAIN, LABELFONTDIM));
+        this.clientLabel.setFont(FONT);
+        this.checkInLabel.setFont(FONT);
+        this.checkOutLabel.setFont(FONT);
+        this.roomLabel.setFont(FONT);
         this.roomTextField.setColumns(10);
         this.clientTextField.setColumns(10);
         this.dataPanel.setLayout(dataPanelLayout);
@@ -196,9 +201,7 @@ public class AddReservationView extends JFrame {
     }
 
     private class JDialogView extends JDialog {
-        /**
-         * 
-         */
+
         private static final long serialVersionUID = 1L;
         private static final int POSITIONX = 7;
         private static final int POSITIONY = 3;

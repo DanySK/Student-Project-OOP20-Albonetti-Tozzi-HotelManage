@@ -31,11 +31,6 @@ public class ReservationsHomeView extends JFrame {
     private final FlowLayout buttonsPanelLayout = new FlowLayout(FlowLayout.CENTER, 100, 15);
     private final FlowLayout infoPanelLayout = new FlowLayout(FlowLayout.CENTER);
 
-
-
-     /**
-     * Create the frame.
-     */
     public ReservationsHomeView() {
 
         this.getContentPane().setLayout(new BorderLayout());

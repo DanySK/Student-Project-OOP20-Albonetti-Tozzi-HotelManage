@@ -12,19 +12,22 @@ import java.util.Date;
 import java.util.List;
 import java.awt.GridLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JDateChooser;
 
+import controller.Room.ControllerRoom;
+import controller.Room.ControllerRoomImpl;
+import model.room.Room;
 import view.Client.ClientHomeView;
 import view.Reservation.ReservationsHomeView;
 
-
-
 public class HomeHotelManageView extends JFrame {
     /**
-     * 
+     * Main view.
      */
     private static final long serialVersionUID = 1L;
     private static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -65,7 +68,12 @@ public class HomeHotelManageView extends JFrame {
          * Action listener for the rooms.
          */
         ActionListener al = e -> {
-            // add action on button room
+            int indexButton = this.listRoomButton.indexOf(e.getSource());
+            JButton button = (JButton) e.getSource();
+            Color status = button.getBackground();
+            JDialogRoom dialogRoom = new JDialogRoom(indexButton, status);
+            dialogRoom.setVisible(true);
+            dialogRoom.pack();
         };
 
         /**
@@ -133,5 +141,39 @@ public class HomeHotelManageView extends JFrame {
                 }
             }
         });
+    }
+
+    private class JDialogRoom extends JDialog {
+
+        private static final long serialVersionUID = 1L;
+        private static final int POSITIONX = 7;
+        private static final int POSITIONY = 7;
+        private static final int FONTDIM = 15;
+
+        private final JPanel textPanel = new JPanel();
+        private final JTextArea textArea = new JTextArea();
+
+        JDialogRoom(final int indexButton, final Color status) {
+            ControllerRoom roomController = new ControllerRoomImpl();
+            Room room = roomController.getRoom(indexButton + 1);
+
+            this.setLocation(SCREEN_WIDTH / POSITIONX, SCREEN_HEIGHT / POSITIONY);
+            this.setLayout(new BorderLayout());
+            this.getContentPane().add(textPanel, BorderLayout.CENTER);
+            this.setTitle("Stanza: " + room.getNumber());
+
+            this.textArea.setText("Stanza: " + room.getNumber() + "\nTipologia: " + room.getType().toString() + "\n");
+            this.textArea.setEditable(false);
+            this.textArea.setFont(new Font("Tahoma", Font.PLAIN, FONTDIM));
+            this.textPanel.add(textArea);
+
+            if (status.equals(Color.GREEN)) {
+                this.textArea.append("Stato: LIBERA");
+            } else if (status.equals(Color.ORANGE)) {
+                this.textArea.append("Stato: CHECK-OUT");
+            } else {
+                this.textArea.append("Stato: PRENOTATA");
+            }
+        }
     }
 }
