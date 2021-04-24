@@ -19,13 +19,15 @@ import java.util.Set;
 
 public class ControllerReservationTest {
 
+    private static final int ROOMNUMBER = 6;
+
     private ControllerReservation resContr = new ControllerReservationImpl();
     private ControllerRoom roomContr = new ControllerRoomImpl();
     private ControllerClient clientContr = new ControllerClientImpl();
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yy");
  
     @Test
-    public void tryUsingCalendar() throws ParseException {
+    public void tryUsingFormatter() throws ParseException {
         Set<Reservation> reservations = this.resContr.getAllReservation();
         for (Reservation res : reservations) {
            System.out.println(dateFormatter.format(res.getDateIn()));
@@ -60,10 +62,11 @@ public class ControllerReservationTest {
 
     @Test 
     public void tryDeleteOnFile() throws ParseException {
+
         Date dateIn = this.dateFormatter.parse("18/04/2021");
         Date dateOut = this.dateFormatter.parse("22/04/2021");
-        int numberOfRoom = 6;
-        Reservation res = new ReservationImpl(this.clientContr.getClient("tzzchr00a50r458l"), dateIn, dateOut, this.roomContr.getRoom(numberOfRoom));
+        Reservation res = new ReservationImpl(this.clientContr.getClient("tzzchr00a50r458l"), dateIn, dateOut, this.roomContr.getRoom(ROOMNUMBER));
+
         this.resContr.addReservation(res);
         for (Reservation res1 : this.resContr.getAllReservation()) {
             System.out.println(res1.toString());
