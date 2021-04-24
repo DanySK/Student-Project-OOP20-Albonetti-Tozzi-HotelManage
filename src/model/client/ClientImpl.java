@@ -1,8 +1,6 @@
 package model.client;
-
 import java.util.regex.Pattern;
 
-import model.file.*;
 
 public class ClientImpl implements Client {
 
@@ -22,12 +20,24 @@ public class ClientImpl implements Client {
         this.id = id;
     }
 
+    /**
+     * get name client.
+     * @return name
+     */
     public String getName() {
         return name;
     }
+    /**
+     * get surname client.
+     * @return surname
+     */
     public String getSurname() {
         return surname;
     }
+    /**
+     * get id client.
+     * @return id
+     */
     public String getId() {
         return id;
     }

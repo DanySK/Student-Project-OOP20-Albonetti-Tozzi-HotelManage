@@ -68,6 +68,7 @@ public class MyFileImpl implements MyFile {
             String line = reader.readLine();
             while (line != null) {
                 if (line.contains(string.toLowerCase())) {
+                    reader.close();
                     return line;
                 }
             line = reader.readLine();
