@@ -64,7 +64,7 @@ public class HomeHotelManageView extends JFrame {
          * Action listener for the rooms.
          */
         ActionListener al = e -> {
-            //add action on button room
+            // add action on button room
         };
 
         /**
@@ -72,14 +72,14 @@ public class HomeHotelManageView extends JFrame {
          */
         int counter = 1;
         for (int i = 0; i < NUMBEROFROOM - 1; i++) {
-                JButton roomButton = new JButton("Stanza: "  + counter);
-                roomButton.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, BUTTONFONTDIM));
-                roomButton.setForeground(Color.BLACK);
-                roomButton.setBackground(Color.GREEN);
-                roomButton.addActionListener(al);
-                counter++;
-                this.listRoomButton.add(roomButton);
-            }
+            JButton roomButton = new JButton("Stanza: " + counter);
+            roomButton.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, BUTTONFONTDIM));
+            roomButton.setForeground(Color.BLACK);
+            roomButton.setBackground(Color.GREEN);
+            roomButton.addActionListener(al);
+            counter++;
+            this.listRoomButton.add(roomButton);
+        }
         JButton suiteButton = new JButton("Suite: " + NUMBEROFROOM);
         suiteButton.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, BUTTONFONTDIM));
         suiteButton.setForeground(Color.BLACK);
@@ -97,12 +97,11 @@ public class HomeHotelManageView extends JFrame {
         this.northPanel.add(findButton);
         this.dateChooser.setPreferredSize(DATECHOOSERDIMENSION);
 
-
         reservationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent a) {
-               ReservationsHomeView reservation = new ReservationsHomeView();
-               reservation.setVisible(true);
+                ReservationsHomeView reservation = new ReservationsHomeView();
+                reservation.setVisible(true);
             };
         });
 
@@ -122,7 +121,14 @@ public class HomeHotelManageView extends JFrame {
 
                 for (JButton roomButton : listRoomButton) {
                     int room = listRoomButton.indexOf(roomButton);
-                    listRoomButton.get(room).setBackground(logic.statusOnDate(currentDate, room));
+                    Color roomColor = logic.statusOnDate(currentDate, room);
+
+                    if (roomColor == Color.RED || roomColor == Color.ORANGE) {
+                        listRoomButton.get(room).setBackground(roomColor);
+                        continue;
+                    } else {
+                        listRoomButton.get(room).setBackground(roomColor);
+                    }
                 }
             }
         });

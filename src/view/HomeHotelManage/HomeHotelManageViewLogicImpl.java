@@ -13,18 +13,18 @@ public class HomeHotelManageViewLogicImpl implements HomeHotelManageViewLogic {
 
     private final ControllerReservation reservationController;
     private SimpleDateFormat dateFormatter;
+    private Set<Reservation> reservations;
 
     public HomeHotelManageViewLogicImpl() {
         this.reservationController = new ControllerReservationImpl();
         this.dateFormatter = new SimpleDateFormat("dd/MM/yy");
+        this.reservations = reservationController.getAllReservation();
     }
-
 
     @Override
     public final Color statusOnDate(final Date currentDate, final int roomNumber) {
-        Set<Reservation> reservations = reservationController.getAllReservation();
 
-        for (Reservation reservation : reservations) {
+        for (Reservation reservation : this.reservations) {
             String dateIn = dateFormatter.format(reservation.getDateIn());
             String dateOut = dateFormatter.format(reservation.getDateOut());
 
@@ -34,8 +34,6 @@ public class HomeHotelManageViewLogicImpl implements HomeHotelManageViewLogic {
                     return Color.RED;
                 } else if (dateOut.equals(dateFormatter.format(currentDate))) {
                     return Color.ORANGE;
-                } else {
-                    return Color.GREEN;
                 }
             }
         }
