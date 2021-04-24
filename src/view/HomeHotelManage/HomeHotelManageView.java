@@ -7,15 +7,21 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JDateChooser;
 
+import controller.Reservation.ControllerReservation;
+import controller.Reservation.ControllerReservationImpl;
+import model.Reservation.Reservation;
 import view.Client.ClientHomeView;
 import view.Reservation.ReservationsHomeView;
 
@@ -117,12 +123,32 @@ public class HomeHotelManageView extends JFrame {
         findButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                HomeHotelManageViewLogic logic = new HomeHotelManageViewLogicImpl();
+
                 Date currentDate = dateChooser.getDate();
+                ControllerReservation reservationController = new ControllerReservationImpl();
+                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                Set<Reservation> reservations = reservationController.getAllReservation();
 
                 for (JButton roomButton : listRoomButton) {
-                    int room = listRoomButton.indexOf(roomButton);
-                    listRoomButton.get(room).setBackground(logic.statusOnDate(currentDate, room));
+                    for (Reservation reservation : reservations) {
+                        int room = listRoomButton.indexOf(roomButton);
+                        String dateIn = dateFormatter.format(reservation.getDateIn());
+                        String dateOut = dateFormatter.format(reservation.getDateOut());
+
+                        if ((reservation.getRoom().getNumber() - 1 == room)) {
+                            if ((currentDate.after(reservation.getDateIn()) && currentDate.before(reservation.getDateOut()))
+                                    || dateIn.equals(dateFormatter.format(currentDate))) {
+                                roomButton.setBackground(Color.RED);
+                                break;
+                            } else if (dateOut.equals(dateFormatter.format(currentDate))) {
+                                roomButton.setBackground(Color.ORANGE);
+                                break;
+                            } else {
+                                roomButton.setBackground(Color.GREEN);
+                            }
+                        }
+
+                    }
                 }
             }
         });
