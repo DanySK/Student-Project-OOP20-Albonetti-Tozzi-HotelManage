@@ -1,23 +1,15 @@
 package view.Client;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Color;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
 
 import javax.swing.UIManager;
@@ -30,6 +22,9 @@ public class ClientHomeView extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     private static final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    /**
+     * Variables.
+     */
     private final JPanel contentPane;
     private final JButton buttonnewclient = new JButton("Nuvo Cliente");
     private final JButton buttonsearchclient = new JButton("Cerca Cliente");
@@ -46,13 +41,11 @@ public class ClientHomeView extends JFrame {
         contentPane.setBackground(Color.WHITE);
         contentPane.setBorder(null);
         setContentPane(contentPane);
-        
         buttonnewclient.setForeground(Color.BLACK);
         buttonnewclient.setBackground(UIManager.getColor("Table.selectionBackground"));
         buttonsearchclient.setBackground(UIManager.getColor("Table.selectionBackground"));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setFont(label.getFont().deriveFont(label.getFont().getSize() + 7f));
-        
         buttonnewclient.addActionListener(new ActionListener() {
                 public void actionPerformed(final ActionEvent e) {
                         System.out.println("Sto aprendo la view perc registrare il nuovo cliente");
@@ -60,7 +53,6 @@ public class ClientHomeView extends JFrame {
                         nuovo.setVisible(true);
                 }
         });
-        
         buttonsearchclient.addActionListener(new ActionListener() {
                 public void actionPerformed(final ActionEvent e) {
                         System.out.println("Sto aprendo la view per registrare cercare il cliente");

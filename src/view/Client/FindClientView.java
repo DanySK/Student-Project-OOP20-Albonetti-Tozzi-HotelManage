@@ -1,8 +1,5 @@
 package view.Client;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -18,14 +15,12 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.JTextArea;
 
 public class FindClientView extends JFrame {
 
@@ -52,14 +47,12 @@ public class FindClientView extends JFrame {
      */
     public FindClientView() {
         ControllerClient client = new ControllerClientImpl();
-        
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         contentPane = new JPanel();
         contentPane.setBackground(Color.WHITE);
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
-        
         label.setFont(new Font("Tahoma", Font.BOLD, 16));
         lblNonTrovato.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblCliente.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -71,14 +64,13 @@ public class FindClientView extends JFrame {
         textfield.setToolTipText("Codice Fiscale");
         textfield.setBackground(Color.WHITE);
         textfield.setColumns(10);
-        
         buttonSearch.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(final MouseEvent e) {
                 id = textfield.getText();
-                if (client.searchClient(id) && !id.isEmpty()) {
+                if (client.searchClient(id.toLowerCase()) && !id.isEmpty()) {
                     lblNonTrovato.setText("Trovato");
-                    Client c = client.getClient(id);
+                    Client c = client.getClient(id.toLowerCase());
                     labelName.setText("" + c.getName());
                     labelSurname.setText("" + c.getSurname());
                     labelId.setText("" + c.getId());
@@ -86,10 +78,8 @@ public class FindClientView extends JFrame {
                 else{
                     lblNonTrovato.setText("Questo codice fiscale non è presente");
                 }
-                
             }
         });
-        
         btnElimina.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(final MouseEvent e) {
@@ -100,7 +90,6 @@ public class FindClientView extends JFrame {
                 else {
                     lblNonTrovato.setText("Non Eliminato");
                 }
-                
             }
         });
 
