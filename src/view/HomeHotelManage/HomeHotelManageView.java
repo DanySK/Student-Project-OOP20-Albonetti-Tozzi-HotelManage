@@ -7,25 +7,20 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
-
+import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JDateChooser;
 
-import controller.Reservation.ControllerReservation;
-import controller.Reservation.ControllerReservationImpl;
-import model.Reservation.Reservation;
 import view.Client.ClientHomeView;
 import view.Reservation.ReservationsHomeView;
 
-import java.awt.GridLayout;
+
 
 public class HomeHotelManageView extends JFrame {
     /**
@@ -70,7 +65,7 @@ public class HomeHotelManageView extends JFrame {
          * Action listener for the rooms.
          */
         ActionListener al = e -> {
-            //add action on button room
+            // add action on button room
         };
 
         /**
@@ -78,14 +73,14 @@ public class HomeHotelManageView extends JFrame {
          */
         int counter = 1;
         for (int i = 0; i < NUMBEROFROOM - 1; i++) {
-                JButton roomButton = new JButton("Stanza: "  + counter);
-                roomButton.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, BUTTONFONTDIM));
-                roomButton.setForeground(Color.BLACK);
-                roomButton.setBackground(Color.GREEN);
-                roomButton.addActionListener(al);
-                counter++;
-                this.listRoomButton.add(roomButton);
-            }
+            JButton roomButton = new JButton("Stanza: " + counter);
+            roomButton.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, BUTTONFONTDIM));
+            roomButton.setForeground(Color.BLACK);
+            roomButton.setBackground(Color.GREEN);
+            roomButton.addActionListener(al);
+            counter++;
+            this.listRoomButton.add(roomButton);
+        }
         JButton suiteButton = new JButton("Suite: " + NUMBEROFROOM);
         suiteButton.setFont(new Font("Calibri", Font.BOLD | Font.ITALIC, BUTTONFONTDIM));
         suiteButton.setForeground(Color.BLACK);
@@ -103,12 +98,11 @@ public class HomeHotelManageView extends JFrame {
         this.northPanel.add(findButton);
         this.dateChooser.setPreferredSize(DATECHOOSERDIMENSION);
 
-
         reservationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent a) {
-               ReservationsHomeView reservation = new ReservationsHomeView();
-               reservation.setVisible(true);
+                ReservationsHomeView reservation = new ReservationsHomeView();
+                reservation.setVisible(true);
             };
         });
 
@@ -123,31 +117,18 @@ public class HomeHotelManageView extends JFrame {
         findButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-
                 Date currentDate = dateChooser.getDate();
-                ControllerReservation reservationController = new ControllerReservationImpl();
-                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
-                Set<Reservation> reservations = reservationController.getAllReservation();
+                HomeHotelManageViewLogic logic = new HomeHotelManageViewLogicImpl();
 
                 for (JButton roomButton : listRoomButton) {
-                    for (Reservation reservation : reservations) {
-                        int room = listRoomButton.indexOf(roomButton);
-                        String dateIn = dateFormatter.format(reservation.getDateIn());
-                        String dateOut = dateFormatter.format(reservation.getDateOut());
+                    int room = listRoomButton.indexOf(roomButton);
+                    Color roomColor = logic.statusOnDate(currentDate, room);
 
-                        if ((reservation.getRoom().getNumber() - 1 == room)) {
-                            if ((currentDate.after(reservation.getDateIn()) && currentDate.before(reservation.getDateOut()))
-                                    || dateIn.equals(dateFormatter.format(currentDate))) {
-                                roomButton.setBackground(Color.RED);
-                                break;
-                            } else if (dateOut.equals(dateFormatter.format(currentDate))) {
-                                roomButton.setBackground(Color.ORANGE);
-                                break;
-                            } else {
-                                roomButton.setBackground(Color.GREEN);
-                            }
-                        }
-
+                    if (roomColor == Color.RED || roomColor == Color.ORANGE) {
+                        listRoomButton.get(room).setBackground(roomColor);
+                        continue;
+                    } else {
+                        listRoomButton.get(room).setBackground(roomColor);
                     }
                 }
             }
