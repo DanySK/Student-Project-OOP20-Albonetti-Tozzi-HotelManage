@@ -23,7 +23,7 @@ import model.room.Room;
 
 public class ControllerReservationImpl implements ControllerReservation {
 
-    private final URL urlFileReservation = ClassLoader.getSystemResource("src//main//resources//reservations//Reservations.txt");
+    private final URL urlFileReservation = ClassLoader.getSystemResource("Reservations.txt");
     private final MyFile fileManager = new MyFileImpl(this.urlFileReservation);
     private final ControllerClient clientController = new ControllerClientImpl();
     private final ControllerRoom roomController = new ControllerRoomImpl();
