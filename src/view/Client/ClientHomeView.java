@@ -26,7 +26,7 @@ public class ClientHomeView extends JFrame {
      * Variables.
      */
     private final JPanel contentPane;
-    private final JButton buttonnewclient = new JButton("Nuvo Cliente");
+    private final JButton buttonnewclient = new JButton("Nuovo Cliente");
     private final JButton buttonsearchclient = new JButton("Cerca Cliente");
     private final JLabel label = new JLabel("Scegliere quale azione effettuare");
 

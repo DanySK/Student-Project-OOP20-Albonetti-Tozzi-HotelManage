@@ -111,6 +111,7 @@ public class HomeHotelManageView extends JFrame {
             public void actionPerformed(final ActionEvent a) {
                 ReservationsHomeView reservation = new ReservationsHomeView();
                 reservation.setVisible(true);
+                reservation.pack();
             };
         });
 
