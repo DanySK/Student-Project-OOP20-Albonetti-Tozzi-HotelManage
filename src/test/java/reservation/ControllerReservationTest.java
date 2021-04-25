@@ -1,5 +1,4 @@
-package test;
-
+package reservation;
 import org.junit.Test;
 
 import controller.Client.ControllerClient;
@@ -33,7 +32,6 @@ public class ControllerReservationTest {
            System.out.println(dateFormatter.format(res.getDateIn()));
            }
     }
-
     @Test
     public void tryReadOnFile() throws ParseException {
         for (Reservation res : resContr.getAllReservation()) {
@@ -43,7 +41,7 @@ public class ControllerReservationTest {
         }
     }
 
-    @Test 
+    @Test
     public void tryWriteOnFile() throws ParseException {
         Date dateIn = this.dateFormatter.parse("10/12/2020");
         Date dateOut = this.dateFormatter.parse("15/12/2020");
@@ -60,7 +58,7 @@ public class ControllerReservationTest {
         }
     }
 
-    @Test 
+    @Test
     public void tryDeleteOnFile() throws ParseException {
 
         Date dateIn = this.dateFormatter.parse("18/04/2021");

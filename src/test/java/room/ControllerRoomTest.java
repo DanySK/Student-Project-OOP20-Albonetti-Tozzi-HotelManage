@@ -1,4 +1,4 @@
-package test;
+package room;
 import org.junit.Test;
 
 import controller.Room.ControllerRoom;
