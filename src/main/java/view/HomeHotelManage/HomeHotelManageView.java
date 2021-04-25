@@ -165,7 +165,8 @@ public class HomeHotelManageView extends JFrame {
             this.getContentPane().add(textPanel, BorderLayout.CENTER);
             this.setTitle("Stanza: " + room.getNumber());
 
-            this.textArea.setText("Stanza: " + room.getNumber() + "\nTipologia: " + room.getType().toString() + "\n");
+            this.textArea.setText("Stanza: " + room.getNumber() + "\nTipologia: " + room.getType().toString() 
+                    + "\nPosti: " + room.getType().getBeds() + "\nCosto a notte: €" + room.getType().getPrice() + "\n");
             this.textArea.setEditable(false);
             this.textArea.setFont(new Font("Tahoma", Font.PLAIN, FONTDIM));
             this.textPanel.add(textArea);

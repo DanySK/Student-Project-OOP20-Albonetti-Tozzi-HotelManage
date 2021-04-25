@@ -39,7 +39,7 @@ public enum RoomType {
         return this.price;
     }
 
-    public double getBeds() {
+    public int getBeds() {
         return this.beds;
     }
 
