@@ -125,4 +125,9 @@ public class MyFileImpl implements MyFile {
         }
     }
 
+    @Override
+    public final File getFile() {
+        return this.file;
+    }
+
 }

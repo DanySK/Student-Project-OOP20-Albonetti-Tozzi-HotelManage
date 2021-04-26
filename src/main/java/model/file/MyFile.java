@@ -1,5 +1,6 @@
 package model.file;
 
+import java.io.File;
 import java.util.Set;
 
 public interface MyFile {
@@ -34,5 +35,11 @@ public interface MyFile {
      * @return boolean
      */
     boolean deleteline(String string);
+
+    /**
+     * 
+     * @return file
+     */
+    File getFile();
 
 }

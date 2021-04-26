@@ -8,10 +8,7 @@ import controller.Room.ControllerRoomImpl;
 import model.Reservation.Reservation;
 import model.Reservation.ReservationImpl;
 import model.client.ClientImpl;
-import model.file.MyFileImpl;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

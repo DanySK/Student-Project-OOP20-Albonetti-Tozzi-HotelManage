@@ -6,7 +6,7 @@ build
 bin/
 doc/
 *.log
-*.pdf
+
 
 #Not ignore this file
 !bin/default/Clients.txt
