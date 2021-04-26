@@ -1,8 +1,5 @@
 package model.room;
 
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class RoomImpl implements Room {
 

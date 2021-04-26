@@ -25,7 +25,7 @@ public enum RoomType {
     /**
      * 
      */
-    SUITE(2, 50);
+    SUITE(100, 50);
 
     private double price;
     private int beds;
