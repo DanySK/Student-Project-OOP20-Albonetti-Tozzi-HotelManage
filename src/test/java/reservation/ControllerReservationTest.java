@@ -50,27 +50,5 @@ public class ControllerReservationTest {
             System.out.println(res.toString());
         }
     }
-
-    @Test
-    public void file() throws MalformedURLException {
-        String dirJava = System.getProperty("java.home");
-        String dirPartenza = System.getProperty("user.dir");
-        String dirHomeUser = System.getProperty("user.home");
-        String sep = System.getProperty("file.separator");
-
-        String path = (dirHomeUser + sep + "Reservation.txt");
-        File filePath = new File(path);
- 
-
-        MyFileImpl file = new MyFileImpl(path);
-
-        System.out.println("Directory installazione java: " + dirJava);
-        System.out.println("Directory in cui è invocato il comando: " + dirPartenza);
-        System.out.println("Directory home dell'utente: " + dirHomeUser);
-        System.out.println("Separatore di directory: " + sep);
-
-        System.out.println("Il filePath esiste: " + filePath.exists());
-        System.out.println("Il fileUrl esiste: " + file.fileReader());
-    }
 }
 
