@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -19,8 +18,15 @@ public class MyFileImpl implements MyFile {
     private final File file;
     private Set<String> list = new TreeSet<>();
 
-    public MyFileImpl(final URL fileName) {
-        file = new File(fileName.getPath());
+    public MyFileImpl(final String fileName)  {
+        this.file = new File(fileName);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("ERRORE NON E' POSSIBILE CREARE IL FILE");
+            }
+        }
     }
 
     @Override

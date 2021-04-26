@@ -1,7 +1,5 @@
 package controller.Client;
 
-
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -13,19 +11,20 @@ import model.file.MyFile;
 import model.file.MyFileImpl;
 
 public class ControllerClientImpl implements ControllerClient {
+    private static final String SEP = System.getProperty("file.separator");
+    private static final String DIRUSER = System.getProperty("user.home");
+    private static final String NAMEFILE = ("Clients.txt");
+    private static final String PATH = (DIRUSER + SEP + NAMEFILE);
 
     private final List<Client> list = new LinkedList<>();
     private Set<String> lists = new TreeSet<>();
-    private final URL clientUrl;
-    private final String nameFile = "Clients.txt";
     private MyFile myfile;
 
     public ControllerClientImpl() {
-        clientUrl = ClassLoader.getSystemResource(nameFile);
-        myfile = new MyFileImpl(clientUrl);
-        lists = myfile.fileReader();
+        this.myfile = new MyFileImpl(PATH);
+        this.lists = myfile.fileReader();
         for (var i: lists) {
-            list.add(new ClientImpl(i));
+            this.list.add(new ClientImpl(i));
         }
     }
  

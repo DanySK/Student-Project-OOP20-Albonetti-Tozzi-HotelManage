@@ -1,6 +1,5 @@
 package controller.Reservation;
 
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,16 +21,21 @@ import model.room.Room;
 
 
 public class ControllerReservationImpl implements ControllerReservation {
-
-    private final URL urlFileReservation = ClassLoader.getSystemResource("Reservations.txt");
-    private final MyFile fileManager = new MyFileImpl(this.urlFileReservation);
+    private static final String SEP = System.getProperty("file.separator");
+    private static final String DIRUSER = System.getProperty("user.home");
+    private static final String NAMEFILE = ("Reservation.txt");
+    private static final String PATH = (DIRUSER + SEP + NAMEFILE);
+    private MyFile fileManager;
     private final ControllerClient clientController = new ControllerClientImpl();
     private final ControllerRoom roomController = new ControllerRoomImpl();
     private Set<Reservation> allReservation = new HashSet<>();
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
     public ControllerReservationImpl() {
+        this.fileManager =  new MyFileImpl(PATH);
         this.getAllReservation();
+
+ 
     }
 
     private Set<String> readReservation() {
